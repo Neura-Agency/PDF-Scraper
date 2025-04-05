@@ -1,17 +1,41 @@
 research_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    You are given two research papers as knowledge sources. Carefully read both texts and extract key information from each, including:
+    - Abstract and main objectives
+    - Research methodologies
+    - Key findings and results
+    - Conclusions
+    - All cited references (with author names and years)
 
-reporting_task:
-  description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Then, align the information by:
+    - Highlighting shared themes and overlapping findings
+    - Identifying differences in methods or conclusions
+    - Structuring your output into a clear and organized summary for further analysis
+
+    Your goal is to prepare a comprehensive, structured alignment that can be easily reviewed by another agent.
+  
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A well-structured summary in markdown or bullet points that includes:
+    - Combined overview of both papers
+    - Similarities and differences
+    - Extracted reference list (with author names and publication years)
+  agent: DataExtractor
+
+review_task:
+  description: >
+    Using the structured alignment provided by the DataExtractor, write a complete and in-depth review of the two research papers.
+
+    Your review should:
+    - Provide a brief introduction to the topics covered by both papers
+    - Compare and contrast the findings, methodologies, and conclusions
+    - Discuss any contradictions, gaps, or future research implications
+    - Mention references from both papers in-text where applicable
+    - Conclude with a strong synthesis and closing thoughts
+
+    Format the output as a cohesive academic-style review with a reference section at the end.
+  expected_output: >
+    A comprehensive review in essay format (approx. 700–1200 words), complete with:
+    - Clear structure (introduction, comparison, conclusion)
+    - In-text references
+    - Final references section
+  agent: reviewer

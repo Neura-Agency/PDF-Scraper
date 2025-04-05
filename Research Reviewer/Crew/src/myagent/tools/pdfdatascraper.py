@@ -1,4 +1,4 @@
-import fitz  # PyMuPDF
+import fitz 
 import sys
 import os
 
@@ -21,10 +21,9 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     output_text = extract_text_from_pdf(file_path)
 
-    # Save to extracted_text.txt in the same folder
-    output_path = os.path.join(os.path.dirname(__file__), "extracted_text.txt")
+    output_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'paper2.txt')
+    output_path = os.path.abspath(output_path)
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(output_text)
 
-    # Optional: print to return it to the frontend as well
     print(output_text)
