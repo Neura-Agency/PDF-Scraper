@@ -1,0 +1,8 @@
+python-dotenv
+PyMuPDF
+fastapi
+uvicorn
+aiofiles
+pydantic
+markdown
+crewai
