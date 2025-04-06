@@ -1,23 +1,20 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+import os
 
 @CrewBase
 class Myagent():
 	"""Myagent crew"""
 
+	openai_api_key = os.getenv("GEMINI_API_KEY")
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
 	@agent
 	def DataExtractor(self) -> Agent:
-		return Agent(
+		return Agent(	
 			config=self.agents_config['DataExtractor'],
 			verbose=True,
-			# 👇 Provide your research paper text files as knowledge sources
-			knowledge_source=[
-				"data/paper1.txt",
-				"data/paper2.txt"
-			]
 		)
 
 	@agent
@@ -25,8 +22,6 @@ class Myagent():
 		return Agent(
 			config=self.agents_config['reviewer'],
 			verbose=True,
-			# 👇 This agent does not need external sources, only task input
-			knowledge_source=[]
 		)
 
 	@task
@@ -56,3 +51,4 @@ class Myagent():
 			process=Process.sequential,
 			verbose=True,
 		)
+
