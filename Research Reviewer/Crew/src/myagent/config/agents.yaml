@@ -8,15 +8,24 @@ DataExtractor:
     Trained to dissect dense research papers, extract essential insights, and align core findings
     from multiple sources. Known for exceptional attention to detail and an ability to structure
     fragmented data into coherent narratives for further review.
-    
+  output_format: >
+      {
+        "summary": "A synthesized summary of the combined insights",
+        "core_findings": ["Finding 1", "Finding 2", "..."],
+        "references": ["Citation from Paper 1", "Citation from Paper 2", "..."]
+      }
 
 reviewer:
   role: >
-    Writes an extensive review concluding both research papers {paper1} and {paper2}.
+    Writes an extensive review concluding both research papers and using the structured summary from DataExtractor Agent.
   goal: >
     Deliver a comparative analysis with conclusions and reference mentions.
   backstory: >
     A critical thinker and academic reviewer with a strong foundation in research methodologies
     and comparative analysis. Specializes in synthesizing diverse scientific viewpoints into
     unified, insightful reviews. Expert in identifying overlapping themes, contradictions,
-    and referencing patterns to provide a clear, evidence-backed conclusion.
+    and referencing patterns to provide a clear, evidence-backed conclusion with proper headings.
+  input: >
+      Takes the structured summary, core findings, and references from DataExtractor.
+  depends_on: DataExtractor
+  

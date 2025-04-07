@@ -1,4 +1,4 @@
-import fitz 
+import fitz  
 import sys
 import os
 
@@ -21,8 +21,11 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     output_text = extract_text_from_pdf(file_path)
 
-    output_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'paper2.txt')
-    output_path = os.path.abspath(output_path)
+    
+    
+    
+    output_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'knowledge', 'paper1.txt')
+
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(output_text)
 

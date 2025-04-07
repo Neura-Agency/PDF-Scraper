@@ -1,5 +1,7 @@
 import { spawn } from "child_process";
 import { formidable } from "formidable";
+import path from "path";
+import fs from "fs";
 
 export const config = {
   api: {
@@ -23,8 +25,26 @@ export default async function handler(req, res) {
   
     const pdfPath = files.pdf[0].filepath;
 
+    const pythonScriptPath = path.join(
+      __dirname,
+      '..', // from /api
+      '..', // from /api
+      '..', // to /pages
+      '..', // to /src
+      '..', // to /researcher
+      '..', // to /Research Reviewer
+      'Crew',
+      'src',
+      'myagent',
+      'tools',
+      'pdfdatascraper.py'
+    );
+    
+    
+    
+
     const python = spawn("python", [
-      "C:\\Users\\Hamza khan\\OneDrive\\Desktop\\projects\\Neura Agency\\Research Reviewer\\Crew\\src\\myagent\\tools\\pdfdatascraper.py",
+      pythonScriptPath,
       pdfPath,
     ]);
 

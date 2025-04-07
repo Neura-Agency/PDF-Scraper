@@ -21,3 +21,5 @@ build-backend = "hatchling.build"
 
 [tool.crewai]
 type = "crew"
+
+run_program = "$env:PYTHONPATH=".\Crew\src"; uvicorn myagent.main:app --reload"
