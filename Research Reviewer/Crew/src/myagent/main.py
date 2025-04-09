@@ -7,6 +7,7 @@ from fastapi.responses import HTMLResponse
 import markdown
 from myagent.crew import Myagent
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'Crew', '.env'))
 load_dotenv(dotenv_path= dotenv_path)
@@ -34,6 +35,19 @@ def get_paper2_content():
         return "paper2.txt does not exist."
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 async def root():
