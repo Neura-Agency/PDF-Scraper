@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+interface UploadProps {
+  setResponseData: (data: string) => void;
+}
 
-export default function Upload() {
+export default function Upload({ setResponseData }: UploadProps) {
   const [file, setFile] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
   const [responseText, setResponseText] = useState<string>("");
+
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
@@ -25,7 +29,7 @@ export default function Upload() {
 
     try {
       const getResponse = await axios.get("http://127.0.0.1:8000/myagent");
-      console.log("GET Response:", getResponse.data);
+      setResponseData(getResponse.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -34,14 +38,15 @@ export default function Upload() {
   return (
     <>
       <div className="flex items-center gap-4">
-      <div className="flex w-full p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-4xl bg-opacity-48">
+
+      <div className="flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
         <input
          type="text" 
          className="focus:outline-none bg-none text-white p-2 rounded-lg w-full"
          placeholder="Response will be shown here..."
         />
 
-        <form className="flex w-full">
+        <form className="flex gap-2">
           <div className="relative w-10 h-10">
             <input
               type="file"
