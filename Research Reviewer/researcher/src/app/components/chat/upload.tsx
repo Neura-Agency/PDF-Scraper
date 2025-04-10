@@ -37,13 +37,12 @@ export default function Upload() {
       <div className="flex w-full p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-4xl bg-opacity-48">
         <input
          type="text" 
-         value={responseText}
          className="focus:outline-none bg-none text-white p-2 rounded-lg w-full"
          placeholder="Response will be shown here..."
         />
 
         <form className="flex w-full">
-          <div className="relative">
+          <div className="relative w-10 h-10">
             <input
               type="file"
               accept=".pdf"
@@ -52,7 +51,7 @@ export default function Upload() {
                   setFile(e.target.files[0]);
                 }
               }}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
             <img
               src="/images/add.png"
@@ -60,7 +59,7 @@ export default function Upload() {
               className="w-10 h-10 cursor-pointer"
             />
           </div>
-          <div className="relative">
+          <div className="relative w-10 h-10">
             <input
               type="file"
               accept=".pdf"
@@ -69,7 +68,7 @@ export default function Upload() {
                   setFile2(e.target.files[0]);
                 }
               }}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             />
             <img
               src="/images/add.png"
