@@ -53,8 +53,8 @@ export default function Upload() {
             }
           }}
         />
-        <div className="p-[2px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-            <div className="rounded-full flex items-center w-10 h-10">
+        <div className="p-[1px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+            <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
               <button
                 type="submit"
                 className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
