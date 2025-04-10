@@ -1,0 +1,16 @@
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000b1603; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  
+  background: linear-gradient(45deg, #27d2f0, #FF00AA); 
+  border-radius: 10px; 
+  border: 2px solid #000B16; 
+}
