@@ -7,8 +7,8 @@ export default function Upload() {
   const [file2, setFile2] = useState<File | null>(null);
   const [responseText, setResponseText] = useState<string>("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+    if (e) e.preventDefault();
     if (!file && !file2) return;
 
     const formData = new FormData();
@@ -33,6 +33,7 @@ export default function Upload() {
 
   return (
     <>
+      <div className="flex items-center gap-4">
       <div className="flex w-full p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-4xl bg-opacity-48">
         <input
          type="text" 
@@ -41,7 +42,7 @@ export default function Upload() {
          placeholder="Response will be shown here..."
         />
 
-        <form onSubmit={handleSubmit} className="flex w-full">
+        <form className="flex w-full">
           <div className="relative">
             <input
               type="file"
@@ -76,16 +77,17 @@ export default function Upload() {
               className="w-10 h-10 cursor-pointer"
             />
           </div>
-
-          <div className="p-[1px] rounded-full bg-gradient-to-b from-[#27D1F0] from-45% to-[#FF00AA]">
-            <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
-              <button
-                type="submit"
-                className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
-              ></button>
-            </div>
-          </div>
         </form>
+      </div>
+
+        <div className="p-[1px] rounded-full bg-gradient-to-b from-[#27D1F0] from-45% to-[#FF00AA]">
+          <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
+            <button
+              onClick={() => handleSubmit()}
+              className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
+            ></button>
+          </div>
+        </div>
       </div>
     </>
   );
