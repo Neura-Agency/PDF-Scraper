@@ -2,7 +2,6 @@
 import { useState } from "react";
 import axios from "axios";
 
-
 export default function Upload() {
   const [file, setFile] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
@@ -35,32 +34,47 @@ export default function Upload() {
   return (
     <>
       <form onSubmit={handleSubmit} className="flex w-full">
-        <input
-          type="file"
-          accept=".pdf"
-          onChange={(e) => {
-            if (e.target.files) {
-              setFile(e.target.files[0]);
-            }
-          }}
-        />
-        <input
-          type="file"
-          accept=".pdf"
-          onChange={(e) => {
-            if (e.target.files) {
-              setFile2(e.target.files[0]);
-            }
-          }}
-        />
-        <div className="p-[1px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-            <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
-              <button
-                type="submit"
-                className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
-              >
-              </button>
-            </div>
+        <div className="relative">
+          <input
+            type="file"
+            accept=".pdf"
+            onChange={(e) => {
+              if (e.target.files) {
+                setFile(e.target.files[0]);
+              }
+            }}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          />
+          <img
+            src="/images/upload-icon.png"
+            alt="Upload"
+            className="w-10 h-10 cursor-pointer"
+          />
+        </div>
+        <div className="relative">
+          <input
+            type="file"
+            accept=".pdf"
+            onChange={(e) => {
+              if (e.target.files) {
+                setFile2(e.target.files[0]);
+              }
+            }}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          />
+          <img
+            src="/images/upload-icon.png"
+            alt="Upload"
+            className="w-10 h-10 cursor-pointer"
+          />
+        </div>
+        <div className="p-[1px] rounded-full bg-gradient-to-b from-[#27D1F0] from-45% to-[#FF00AA]">
+          <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
+            <button
+              type="submit"
+              className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
+            ></button>
+          </div>
         </div>
       </form>
     </>
