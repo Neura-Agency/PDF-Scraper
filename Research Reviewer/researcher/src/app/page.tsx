@@ -1,11 +1,13 @@
 // app/page.tsx
+import Preview from "./components/preview/Preview";
 import UploadForm from "./components/UploadForm";
+import "./globals.css"
 
 export default function HomePage() {
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Upload PDF</h1>
+    <main className="flex items-center justify-around h-screen">
       <UploadForm />
+      <Preview/>
     </main>
   );
 }

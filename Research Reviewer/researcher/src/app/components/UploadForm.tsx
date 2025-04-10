@@ -35,8 +35,10 @@ export default function UploadForm() {
 
   return (
       <>
+        <div className="flex flex-col">
         <Chatbox />  
         <Upload />
+        </div>
       </>
   );
 } 

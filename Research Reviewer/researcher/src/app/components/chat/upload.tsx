@@ -34,7 +34,7 @@ export default function Upload() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex w-full">
         <input
           type="file"
           accept=".pdf"
@@ -53,20 +53,15 @@ export default function Upload() {
             }
           }}
         />
-        <button
-          type="submit"
-          className="rounded-full"
-          style={{
-            backgroundImage: 'url("/path/to/upload.png")', 
-            backgroundSize: 'cover',
-            width: '100px',
-            height: '40px', 
-            border: 'none', 
-            cursor: 'pointer' 
-          }}
-        >
-          Upload
-        </button>
+        <div className="p-[2px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+            <div className="rounded-full flex items-center w-10 h-10">
+              <button
+                type="submit"
+                className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
+              >
+              </button>
+            </div>
+        </div>
       </form>
     </>
   );
