@@ -7,11 +7,13 @@ import "./globals.css";
 
 export default function HomePage() {
   const [responseData, setResponseData] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false); // Manage loading state here
 
   return (
     <main className="flex items-center justify-around h-screen w-screen bg-radial from-[#001F53] to-[#000026] backdrop-blur-3xl">
-      <UploadForm setResponseData={setResponseData} />
-      <Preview responseData={responseData} />
+      <UploadForm setResponseData={setResponseData} setLoading={setLoading} />
+      <span className="min-h-[90%] w-1 bg-gradient-to-t from-[#27D1F0] from-30% to-[#FF00AA]"></span>
+      <Preview responseData={responseData} loading={loading} />
     </main>
   );
 }

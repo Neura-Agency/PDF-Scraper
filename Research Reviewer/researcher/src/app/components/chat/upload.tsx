@@ -3,35 +3,39 @@ import { useState } from "react";
 import axios from "axios";
 interface UploadProps {
   setResponseData: (data: string) => void;
+  setLoading: (loading: boolean) => void;
 }
 
-export default function Upload({ setResponseData }: UploadProps) {
+export default function Upload({ setResponseData, setLoading }: UploadProps) {
   const [file, setFile] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
   const [responseText, setResponseText] = useState<string>("");
-
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
     if (!file && !file2) return;
 
-    const formData = new FormData();
-    if (file) formData.append("pdf", file);
-    if (file2) formData.append("pdf2", file2);
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-    setResponseText(data?.text || "No text extracted.");
+    setLoading(true); // Show loading screen when starting
 
     try {
+      const formData = new FormData();
+      if (file) formData.append("pdf", file);
+      if (file2) formData.append("pdf2", file2);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      setResponseText(data?.text || "No text extracted.");
+
       const getResponse = await axios.get("http://127.0.0.1:8000/myagent");
       setResponseData(getResponse.data);
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false); // Hide loading screen when complete
     }
   };
 
@@ -47,7 +51,7 @@ export default function Upload({ setResponseData }: UploadProps) {
         />
 
         <form className="flex gap-2">
-          <div className="relative w-10 h-10">
+          <div className="relative w-10 h-10 flex items-center">
             <input
               type="file"
               accept=".pdf"
@@ -61,10 +65,10 @@ export default function Upload({ setResponseData }: UploadProps) {
             <img
               src="/images/add.png"
               alt="Upload"
-              className="w-10 h-10 cursor-pointer"
+              className="w-8 h-8 cursor-pointer"
             />
           </div>
-          <div className="relative w-10 h-10">
+          <div className="relative w-10 h-10 flex items-center">
             <input
               type="file"
               accept=".pdf"
@@ -78,7 +82,7 @@ export default function Upload({ setResponseData }: UploadProps) {
             <img
               src="/images/add.png"
               alt="Upload"
-              className="w-10 h-10 cursor-pointer"
+              className="w-8 h-8 cursor-pointer"
             />
           </div>
         </form>
