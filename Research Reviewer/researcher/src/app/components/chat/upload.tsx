@@ -15,8 +15,8 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
     if (e) e.preventDefault();
     if (!file && !file2) return;
 
-    setLoading(true); // Show loading screen when starting
-
+    setLoading(true); 
+    
     try {
       const formData = new FormData();
       if (file) formData.append("pdf", file);
@@ -35,7 +35,7 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false); // Hide loading screen when complete
+      setLoading(false);
     }
   };
 
