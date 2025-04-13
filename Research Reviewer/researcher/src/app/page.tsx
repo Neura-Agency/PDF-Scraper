@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import UploadForm from "./components/UploadForm";
-import Preview from "./components/preview/Preview";
+import Preview from "./components/preview/preview/Preview";
 import "./globals.css";
 
 export default function HomePage() {

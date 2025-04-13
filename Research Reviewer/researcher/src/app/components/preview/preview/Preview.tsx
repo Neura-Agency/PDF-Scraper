@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import './Preview.css';
-import Loading from './Loading/Loading';
+import Loading from '../Loading/Loading';
 
 interface PreviewProps {
   responseData: string;
