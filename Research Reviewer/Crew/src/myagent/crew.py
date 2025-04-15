@@ -1,6 +1,8 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 import os
+from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
+
 
 @CrewBase
 class Myagent():
@@ -29,7 +31,7 @@ class Myagent():
 		return Task(
 			config=self.tasks_config['research_task'],
 			agent=self.DataExtractor(),
-			output_file='alignment_summary.md'  # optional if you want to save intermediate result
+			output_file='alignment_summary.md' 
 		)
 
 	@task
@@ -52,3 +54,21 @@ class Myagent():
 			verbose=True,
 		)
 
+@agent
+def ReviewChatBot(self) -> Agent:
+    review_knowledge = TextFileKnowledgeSource(file_path="final_review.md")
+
+    return Agent(
+        config=self.agents_config['ReviewChatBot'],
+        verbose=True,
+        knowledge_source=[review_knowledge],
+        allow_delegation=False 
+    )
+
+@task
+def chat_task(self) -> Task:
+    return Task(
+        config=self.tasks_config['chat_task'],
+        agent=self.ReviewChatBot(),
+        input_type='user', 
+    )

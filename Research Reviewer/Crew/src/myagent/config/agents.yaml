@@ -28,5 +28,16 @@ reviewer:
   input: >
       Takes the structured summary, core findings, and references from DataExtractor.
   depends_on: DataExtractor
+<<<<<<< HEAD
   temperature: 1
   
+=======
+  
+
+ReviewChatBot:
+  role: "Interactive review assistant"
+  goal: "Answer questions based on the final paper review and use internet if needed"
+  backstory: "A helpful assistant created to clarify, elaborate, and expand upon the final review's content."
+  input: "Final review and structured summary from the reviewer agent."
+  depends_on: reviewer
+>>>>>>> bbc3e9e2edb1dbb6348b4d354b1b28f135543322

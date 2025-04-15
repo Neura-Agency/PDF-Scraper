@@ -12,6 +12,9 @@ const Preview = ({ responseData, loading }: PreviewProps) => {
   const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
+    console.log("responseData:", responseData);
+    console.log("showLoading:", showLoading);
+    
     if (responseData.includes('Kickoff completed')) {
       setShowLoading(false);
     }

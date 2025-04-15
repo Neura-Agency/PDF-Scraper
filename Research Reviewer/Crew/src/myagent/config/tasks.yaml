@@ -39,3 +39,10 @@ review_task:
     - In-text references
     - Final references section
   agent: reviewer
+
+
+  chat_task:
+  description: "Chat with users to answer questions about the review findings."
+  expected_output: "Relevant and accurate responses based on the review or online sources."
+  agent: ReviewChatBot
+  depends_on: reviewer
