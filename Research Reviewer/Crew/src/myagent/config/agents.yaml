@@ -28,4 +28,5 @@ reviewer:
   input: >
       Takes the structured summary, core findings, and references from DataExtractor.
   depends_on: DataExtractor
+  temperature: 1
   
