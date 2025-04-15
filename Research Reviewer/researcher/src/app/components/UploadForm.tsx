@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import Chatbox from './chat/chatbox';
+import Chatbox from './chat/chatbox/chatbox';
 import Upload from "./chat/upload";
 
 interface UploadFormProps {

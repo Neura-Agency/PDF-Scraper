@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-const Textbox = () => {
-  return (
-    <div>Textbox</div>
-  )
+interface TextBoxProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
-export default Textbox
+const TextBox: React.FC<TextBoxProps> = ({ value, onChange, placeholder }) => {
+  return (
+    <input
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder || 'Type your question...'}
+      className="border border-gray-300 p-2 w-full rounded"
+    />
+  );
+};
+
+export default TextBox;

@@ -14,8 +14,7 @@ const Preview = ({ responseData, loading }: PreviewProps) => {
   useEffect(() => {
     console.log("responseData:", responseData);
     console.log("showLoading:", showLoading);
-    if (responseData.includes('Kickoff completed') || 
-        responseData.includes('127.0.0.1:58725 - "GET /myagent HTTP/1.1" 200 OK')) {
+    if (responseData.includes('Kickoff completed')) {
       setShowLoading(false);
     }
   }, [responseData]);
