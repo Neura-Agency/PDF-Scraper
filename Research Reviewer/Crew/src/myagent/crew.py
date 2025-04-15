@@ -2,7 +2,6 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 import os
 from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
-from crewai.tools.serper import SerperDevTool
 
 
 @CrewBase
@@ -32,7 +31,7 @@ class Myagent():
 		return Task(
 			config=self.tasks_config['research_task'],
 			agent=self.DataExtractor(),
-			output_file='alignment_summary.md'  # optional if you want to save intermediate result
+			output_file='alignment_summary.md' 
 		)
 
 	@task
@@ -63,7 +62,6 @@ def ReviewChatBot(self) -> Agent:
         config=self.agents_config['ReviewChatBot'],
         verbose=True,
         knowledge_source=[review_knowledge],
-        tools=[SerperDevTool()],
         allow_delegation=False 
     )
 

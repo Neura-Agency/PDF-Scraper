@@ -1,39 +1,36 @@
 import { useState } from "react";
 import axios from "axios";
-import TextBox from "../textbox";
-
 
 const Chatbox = () => {
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
+  const [messages, setMessages] = useState<{ user: string; ai: string }[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleAsk = async () => {
-    if (!question.trim()) return;
-    const res = await axios.post('/api/ask', { question });
-    setAnswer(res.data.answer);
+  const handleQuestion = async (question: string) => {
+    setLoading(true);
+    try {
+      const res = await axios.post('/api/ask', { question });
+      const answer = res.data.answer;
+      setMessages((prev) => [...prev, { user: question, ai: answer }]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="w-full h-full">
       <div className="flex rounded-4xl bg-[#000B16]/70 border-1 border-[#27d2f070] w-full h-full">
         <main className="p-8 max-w-xl mx-auto">
-          <h1 className="text-3xl font-bold mb-4">📄 PDF Chatbot</h1>
-          <TextBox
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Ask something about the PDF..."
-          />
-          <button
-            onClick={handleAsk}
-            className="mt-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Ask
-          </button>
-          {answer && (
-            <div className="mt-6 bg-gray-100 p-4 rounded">
-              <p className="text-gray-800 whitespace-pre-wrap">{answer}</p>
-            </div>
-          )}
+          <h1 className="text-3xl font-bold mb-4">Research Reviewwer</h1>
+          <div className="space-y-4 mb-4">
+            {messages.map((msg, idx) => (
+              <div key={idx}>
+                <p className="font-semibold text-gray-700">You: {msg.user}</p>
+                <p className="text-gray-900">Bot: {msg.ai}</p>
+              </div>
+            ))}
+          </div>
         </main>
       </div>
     </div>

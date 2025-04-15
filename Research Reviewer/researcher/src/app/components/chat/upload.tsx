@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import TextBox from "./textbox";
 interface UploadProps {
   setResponseData: (data: string) => void;
   setLoading: (loading: boolean) => void;
@@ -10,7 +11,7 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
   const [file, setFile] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
   const [responseText, setResponseText] = useState<string>("");
-  const [question, setQuestion] = useState('');
+  const [question, setQuestion] = useState("");
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
@@ -44,10 +45,9 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
     <>
       <div className="flex items-center gap-4">
         <div className="flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
-          <input
+          <TextBox
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
             placeholder="Ask something about the PDF..."
           />
 
