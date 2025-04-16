@@ -8,13 +8,13 @@ import markdown
 from myagent.crew import Myagent
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'Crew', '.env'))
 load_dotenv(dotenv_path= dotenv_path)
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
-
-from fastapi import FastAPI
 
 def get_paper1_content():
     paper1_path = os.path.join('Crew', 'knowledge', 'paper1.txt')
@@ -53,6 +53,38 @@ app.add_middleware(
 async def root():
     return {"message": "Welcome to MyAgent API"}
 
+# Define the request body schema
+class QuestionRequest(BaseModel):
+    question: str
+
+@app.post("/ask")
+async def ask_question(request: QuestionRequest):
+    """
+    Endpoint to interact with the ReviewChatBot agent and get an answer to the question.
+    """
+    myagent = Myagent()
+    crew = myagent.chat_crew()
+
+    
+    inputs = {"question": request.question}
+    if not request.question:
+        raise HTTPException(status_code=400, detail="Question is required")
+
+    print(f"[DEBUG] Response from ReviewChatBot: {request.question}")
+    try:
+        
+        response = crew.chat(request.question)
+        return {"answer": response}
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    print("Shutting down the server...")
+    
+    
 @app.get("/myagent", response_class=HTMLResponse)
 @app.post("/myagent")
 async def run_crew():
@@ -82,6 +114,10 @@ async def run_crew():
     except Exception as e:
         print(f"An error occurred: {e}")
         return {"error": str(e)}  
+
+
+
+
 
 main = app
 

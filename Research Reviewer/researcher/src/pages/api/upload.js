@@ -18,7 +18,6 @@ export default async function handler(req, res) {
       return res.status(500).send("Error parsing form");
     }
 
-    // Rename uploaded files
     const paper1Path = files.pdf[0].filepath;
     const paper2Path = files.pdf2[0].filepath;
 

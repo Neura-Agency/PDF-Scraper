@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import SubmitButton from "./chatbox/SubmitButton";
+import TextBox from "./textbox";
 interface UploadProps {
   setResponseData: (data: string) => void;
   setLoading: (loading: boolean) => void;
@@ -45,15 +46,15 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuestion(e.target.value);
+  }; 
+
   return (
     <>
       <div className="flex items-center gap-4">
         <div className="flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
-          <input
-            type="text"
-            className="focus:outline-none bg-none text-white p-2 rounded-lg w-full"
-            placeholder="Response will be shown here..."
-          />
+        <TextBox value={question} onChange={handleChange} />
           <SubmitButton
             question={question}
             setQuestion={setQuestion}

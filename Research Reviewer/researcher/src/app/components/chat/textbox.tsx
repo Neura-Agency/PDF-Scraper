@@ -16,7 +16,7 @@ const TextBox: React.FC<TextBoxProps> = ({ value, onChange, placeholder }) => {
         value={value}
         onChange={onChange}
         placeholder={placeholder || "Type your question..."}
-        className="p-2 w-full "
+        className="focus:outline-none bg-none text-white p-2 rounded-lg w-full"
       />
     </>
   );

@@ -41,8 +41,10 @@ review_task:
   agent: reviewer
 
 
-  chat_task:
-  description: "Chat with users to answer questions about the review findings."
-  expected_output: "Relevant and accurate responses based on the review or online sources."
+chat_task:
+  description: > 
+    A task to interact with the ReviewChatBot.
+
+  expected_output: >
+    A well structured response to the user's query, based on the review knowledge and a very reasonable answer. 
   agent: ReviewChatBot
-  depends_on: reviewer
