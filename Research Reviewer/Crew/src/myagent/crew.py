@@ -2,6 +2,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 import os
 from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
+from myagent.tools.research_knowledge import ResearchKnowledgeTool
 import yaml	
 
 @CrewBase
@@ -10,6 +11,14 @@ class Myagent():
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
+
+    def __init__(self):
+        # Initialize tools before super().__init__()
+        self.research_tool = ResearchKnowledgeTool()
+        self.tools = {
+            "research_knowledge": lambda: self.research_tool
+        }
+        super().__init__()
 
     @agent
     def DataExtractor(self) -> Agent:
@@ -27,12 +36,11 @@ class Myagent():
 
     @agent
     def ReviewChatBot(self) -> Agent:
-        review_knowledge = TextFileKnowledgeSource(file_paths=["final_review.md"])
+        # Create a new instance of the tool for each agent
         return Agent(
-            config=self.agents_config['ReviewChatBot'],  
-            verbose=True,
-            knowledge_source=[review_knowledge],
-            allow_delegation=False
+            config=self.agents_config['ReviewChatBot'],
+            tools=[ResearchKnowledgeTool()],
+            verbose=True
         )
 
     @task
@@ -49,7 +57,7 @@ class Myagent():
             config=self.tasks_config['review_task'],
             agent=self.reviewer(),
             inputs=[self.research_task()],
-            output_file='./knowledge/final_review.md'
+            output_file='Crew/knowledge/final_review.md'
         )
 
     @task
@@ -75,4 +83,5 @@ class Myagent():
             tasks=[self.chat_task()],
             process=Process.sequential,
             verbose=True,
+            chat_llm="gemini/gemini-2.0-flash",
         )

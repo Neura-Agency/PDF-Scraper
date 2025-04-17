@@ -65,15 +65,17 @@ async def ask_question(request: QuestionRequest):
     myagent = Myagent()
     crew = myagent.chat_crew()
 
+    review = final_review_content
     
-    inputs = {"question": request.question}
+    input = { "question": request.question,
+            "review_content": review}
     if not request.question:
         raise HTTPException(status_code=400, detail="Question is required")
 
     print(f"[DEBUG] Response from ReviewChatBot: {request.question}")
     try:
         
-        response = crew.chat(request.question)
+        response = crew.kickoff(inputs=input)
         return {"answer": response}
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -88,6 +90,7 @@ async def shutdown_event():
 @app.get("/myagent", response_class=HTMLResponse)
 @app.post("/myagent")
 async def run_crew():
+    global final_review_content  # Use the global variable
     agent = Myagent()
     crew = agent.crew()
     
@@ -101,10 +104,11 @@ async def run_crew():
         result = crew.kickoff(inputs=inputs) 
         print("Kickoff completed.")
 
-        file_path = "final_review.md"
+        file_path = "Crew/knowledge/final_review.md"
         if os.path.exists(file_path):
             with open(file_path, "r", encoding="utf-8") as f:
                 md_content = f.read()
+                final_review_content = md_content  # Store the final review content
                 html_content = markdown.markdown(md_content)
                 return HTMLResponse(content=html_content)
         else:
@@ -113,9 +117,7 @@ async def run_crew():
         return {"result": result}  
     except Exception as e:
         print(f"An error occurred: {e}")
-        return {"error": str(e)}  
-
-
+        return {"error": str(e)}
 
 
 

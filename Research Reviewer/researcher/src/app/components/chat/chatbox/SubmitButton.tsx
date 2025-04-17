@@ -26,6 +26,8 @@ export default function SubmitButton({
     try {
       const response = await axios.post("/api/ask", { question });
       const aiAnswer = response.data?.answer || "No response.";
+
+      // Call the parent function
       onAnswer(question, aiAnswer);
 
       setQuestion("");
@@ -42,7 +44,7 @@ export default function SubmitButton({
       onClick={handleClick}
       disabled={isSubmitting}
       className="bg-[url('/images/send.png')] bg-contain bg-no-repeat w-10 h-9 m-auto cursor-pointer mx-4 p-2 border-1  border-[#27d2f0] rounded-full"
-    >
+    > 
     </button>
   );
 }

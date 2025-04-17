@@ -1,1 +1,0 @@
-I am unable to complete the task as the necessary files ('paper1.txt' and 'paper2.txt') are missing. I require the content of these files to extract information, identify similarities and differences, and create a structured summary.

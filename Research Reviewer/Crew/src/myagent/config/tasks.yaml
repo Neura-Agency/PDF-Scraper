@@ -42,9 +42,8 @@ review_task:
 
 
 chat_task:
-  description: > 
-    A task to interact with the ReviewChatBot.
-
+  description: >
+    Answer user questions using the complete review and extracted data
   expected_output: >
-    A well structured response to the user's query, based on the review knowledge and a very reasonable answer. 
+    A detailed answer that references specific parts of the review and extracted data
   agent: ReviewChatBot

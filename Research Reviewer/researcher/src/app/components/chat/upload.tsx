@@ -7,9 +7,10 @@ interface UploadProps {
   setResponseData: (data: string) => void;
   setLoading: (loading: boolean) => void;
   messages: { user: string; ai: string }[];
-  setMessages: React.Dispatch<React.SetStateAction<{ user: string; ai: string }[]>>;
+  setMessages: React.Dispatch<
+    React.SetStateAction<{ user: string; ai: string }[]>
+  >;
 }
-
 
 export default function Upload({ setResponseData, setLoading }: UploadProps) {
   const [question, setQuestion] = useState("");
@@ -48,13 +49,13 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value);
-  }; 
+  };
 
   return (
     <>
       <div className="flex items-center gap-4">
         <div className="flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
-        <TextBox value={question} onChange={handleChange} />
+          <TextBox value={question} onChange={handleChange} />
           <SubmitButton
             question={question}
             setQuestion={setQuestion}
@@ -63,7 +64,9 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
             }
             setLoading={setLoading}
           />
+        </div>
 
+        <div className="flex items-center gap-2 p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
           <form className="flex gap-2">
             <div className="relative w-10 h-10 flex items-center">
               <input
@@ -79,7 +82,7 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
               <img
                 src="/images/add.png"
                 alt="Upload"
-                className="w-8 h-8 cursor-pointer"
+                className="w-9 h-9 cursor-pointer"
               />
             </div>
             <div className="relative w-10 h-10 flex items-center">
@@ -96,18 +99,17 @@ export default function Upload({ setResponseData, setLoading }: UploadProps) {
               <img
                 src="/images/add.png"
                 alt="Upload"
-                className="w-8 h-8 cursor-pointer"
+                className="w-9 h-9 cursor-pointer"
               />
             </div>
           </form>
-        </div>
-
-        <div className="p-[1px] rounded-full bg-gradient-to-b from-[#27D1F0] from-45% to-[#FF00AA]">
-          <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
-            <button
-              onClick={() => handleSubmit()}
-              className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
-            ></button>
+          <div className="p-[1px] rounded-full bg-gradient-to-b from-[#27D1F0] from-45% to-[#FF00AA]">
+            <div className="rounded-full flex items-center bg-[#000a38] w-10 h-10">
+              <button
+                onClick={() => handleSubmit()}
+                className="bg-[url('/images/upload.png')] bg-contain bg-no-repeat w-6 h-6 m-auto cursor-pointer"
+              ></button>
+            </div>
           </div>
         </div>
       </div>
