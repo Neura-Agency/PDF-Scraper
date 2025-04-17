@@ -90,7 +90,7 @@ async def shutdown_event():
 @app.get("/myagent", response_class=HTMLResponse)
 @app.post("/myagent")
 async def run_crew():
-    global final_review_content  # Use the global variable
+    global final_review_content 
     agent = Myagent()
     crew = agent.crew()
     
@@ -108,7 +108,7 @@ async def run_crew():
         if os.path.exists(file_path):
             with open(file_path, "r", encoding="utf-8") as f:
                 md_content = f.read()
-                final_review_content = md_content  # Store the final review content
+                final_review_content = md_content 
                 html_content = markdown.markdown(md_content)
                 return HTMLResponse(content=html_content)
         else:

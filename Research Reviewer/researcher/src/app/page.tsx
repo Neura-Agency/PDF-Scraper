@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UploadForm from "./components/UploadForm";
+import UploadForm from "./components/chat/UploadForm";
 import Preview from "./components/preview/preview/Preview";
 import "./globals.css";
 
