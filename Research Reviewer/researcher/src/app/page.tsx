@@ -7,7 +7,7 @@ import "./globals.css";
 
 export default function HomePage() {
   const [responseData, setResponseData] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false); // Manage loading state here
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <main className="flex items-center justify-around h-screen w-screen bg-radial from-[#001F53] to-[#000026] backdrop-blur-3xl">
