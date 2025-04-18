@@ -61,21 +61,47 @@ p{
   stroke: #ffffff;
   stroke-width: 2;
   stroke-dasharray: 5, 5;
-  animation: dashPulseforward 0.5s linear infinite;
+  animation: dashPulseforward 1s linear infinite;
   stroke-linecap: round;
+}
+.pulseforward {
+  stroke: #95DDFF;
+  stroke-width: 2;
+  stroke-dasharray: 5, 100;
+  stroke-dashoffset: 0;
+  animation: singledashfarward 0.5s linear infinite;
+  backdrop-filter: blur(10px);
+}
+.pulsebackward {
+  stroke: #95DDFF;
+  stroke-width: 2;
+  stroke-dasharray: 5, 100;
+  stroke-dashoffset: 0;
+  animation: singledashbackward 0.5s linear infinite;
+  backdrop-filter: blur(10px);
 }
 
 .dashed-line-pulse-reverse {
   stroke: #ffffff;
   stroke-width: 2;
   stroke-dasharray: 5, 5;
-  animation: dashPulsebackward 0.5s linear infinite;
+  animation: dashPulsebackward 1s linear infinite;
   stroke-linecap: round;
 }
 
 @keyframes dashPulseforward {
   to {
     stroke-dashoffset: -10;
+  }
+}
+@keyframes singledashfarward {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@keyframes singledashbackward {
+  to {
+    stroke-dashoffset: 100;
   }
 }
 

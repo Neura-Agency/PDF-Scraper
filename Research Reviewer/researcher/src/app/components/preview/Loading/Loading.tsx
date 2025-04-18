@@ -31,7 +31,16 @@ const Loading = ({ showLoading }: LoadingProps) => {
       )}
 
       {visibleDivs >= 2 && (
-        <span className="min-h-10 w-0.5 bg-[#95DDFF] animate-pulse rounded-full fade-in"></span>
+        <svg height="2" width="100" className="rotate-90 max-w-10 my-6">
+        <line x1="0" y1="2" x2="100" y2="2" className="pulseforward" />
+        <line
+          x1="0"
+          y1="1"
+          x2="100"
+          y2="1"
+          className="dashed-line-pulse"
+        />
+      </svg>
       )}
       {visibleDivs >= 3 && (
         <div className="load flex items-center justify-center border-1 mt-6.5 border-[#95DDFF] bg-[#000B16]/70 p-2 w-32 h-32 rotate-45 fade-in">
@@ -44,24 +53,41 @@ const Loading = ({ showLoading }: LoadingProps) => {
         </div>
       )}
       {visibleDivs >= 4 && (
-        <div className="load flex gap-25 mb-12 fade-in">
+        <div className="load flex gap-20 mt-2 mb-9 fade-in">
           <svg height="2" width="100" className="-rotate-45">
-            <line x1="0" y1="1" x2="100" y2="1" className="dashed-line-pulse-reverse " />
+            <line x1="0" y1="2" x2="100" y2="2" className="pulsebackward" />
+            <line
+              x1="0"
+              y1="1"
+              x2="100"
+              y2="1"
+              className="dashed-line-pulse-reverse "
+            />
           </svg>
           <svg height="2" width="100" className="rotate-45">
-            <line x1="0" y1="0" x2="100" y2="1" className="dashed-line-pulse" />
+            <line x1="0" y1="2" x2="100" y2="2" className="pulseforward" />
+            <line x1="0" y1="1" x2="100" y2="1" className="dashed-line-pulse" />
           </svg>
         </div>
       )}
       {visibleDivs >= 4 && (
-        <div className="load flex gap-30 -mt-3 fade-in">
+        <div className="load flex gap-30 fade-in">
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 px-6">
               <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
               <h4>Paper 1</h4>
             </div>
             {visibleDivs >= 5 && (
-              <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full"></span>
+              <svg height="2" width="100" className="rotate-90 my-13">
+                <line x1="0" y1="2" x2="100" y2="2" className="pulseforward" />
+                <line
+                  x1="0"
+                  y1="1"
+                  x2="100"
+                  y2="1"
+                  className="dashed-line-pulse"
+                />
+              </svg>
             )}
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -70,7 +96,16 @@ const Loading = ({ showLoading }: LoadingProps) => {
               <h4>Paper 2</h4>
             </div>
             {visibleDivs >= 5 && (
-              <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full"></span>
+              <svg height="2" width="100" className="rotate-90 my-13">
+                <line x1="0" y1="2" x2="100" y2="2" className="pulseforward" />
+                <line
+                  x1="0"
+                  y1="1"
+                  x2="100"
+                  y2="1"
+                  className="dashed-line-pulse"
+                />
+              </svg>
             )}
           </div>
         </div>
