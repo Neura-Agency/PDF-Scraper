@@ -33,7 +33,6 @@ const Loading = ({ showLoading }: LoadingProps) => {
       {visibleDivs >= 2 && (
         <span className="min-h-10 w-0.5 bg-[#95DDFF] animate-pulse rounded-full fade-in"></span>
       )}
-
       {visibleDivs >= 3 && (
         <div className="load flex items-center justify-center border-1 mt-6.5 border-[#95DDFF] bg-[#000B16]/70 p-2 w-32 h-32 rotate-45 fade-in">
           <div className="flex items-center justify-center gap-2 -rotate-45">
@@ -44,7 +43,6 @@ const Loading = ({ showLoading }: LoadingProps) => {
           </div>
         </div>
       )}
-
       {visibleDivs >= 4 && (
         <div className="load flex gap-25 mb-12 fade-in">
           <svg height="2" width="100" className="-rotate-45">
@@ -55,7 +53,6 @@ const Loading = ({ showLoading }: LoadingProps) => {
           </svg>
         </div>
       )}
-
       {visibleDivs >= 4 && (
         <div className="load flex gap-30 -mt-3 fade-in">
           <div className="flex flex-col items-center justify-center">
@@ -78,7 +75,6 @@ const Loading = ({ showLoading }: LoadingProps) => {
           </div>
         </div>
       )}
-
       {visibleDivs >= 6 && (
         <div className="load flex gap-28 justify-center items-center fade-in">
           <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px]">
