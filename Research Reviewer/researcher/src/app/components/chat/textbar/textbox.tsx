@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import SubmitButton from "./chatbox/SubmitButton";
+import SubmitButton from "../chatbox/components/SubmitButton";
 
 interface TextBoxProps {
   value: string;

@@ -56,3 +56,31 @@ p{
   line-height: 1.5;
   font-size: 0.75rem;
 }
+
+.dashed-line-pulse {
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  animation: dashPulseforward 0.5s linear infinite;
+  stroke-linecap: round;
+}
+
+.dashed-line-pulse-reverse {
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  animation: dashPulsebackward 0.5s linear infinite;
+  stroke-linecap: round;
+}
+
+@keyframes dashPulseforward {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+@keyframes dashPulsebackward {
+  to {
+    stroke-dashoffset: 10;
+  }
+}
