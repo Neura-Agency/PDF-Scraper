@@ -56,3 +56,17 @@ p{
   line-height: 1.5;
   font-size: 0.75rem;
 }
+
+.dashed-line-pulse {
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+  animation: dashPulse 0.5s linear infinite;
+  stroke-linecap: round;
+}
+
+@keyframes dashPulse {
+  to {
+    stroke-dashoffset: -10;
+  }
+}

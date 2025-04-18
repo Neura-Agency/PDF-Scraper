@@ -39,16 +39,21 @@ const Loading = ({ showLoading }: LoadingProps) => {
           <div className="flex items-center justify-center gap-2 -rotate-45">
             <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
             <h4>
-              <TypewriterText text="Processing.."/>
+              <TypewriterText text="Processing.." />
             </h4>
           </div>
         </div>
       )}
 
       {visibleDivs >= 4 && (
-        <div className="load flex gap-40 -mt-10 fade-in">
-          <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full rotate-45"></span>
-          <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full -rotate-45"></span>
+        <div className="load flex gap-40 min- -mt-10 fade-in">
+          <svg height="2" width="full">
+            <line x1="0" y1="1" x2="100" y2="1" className="dashed-line-pulse -rotate-45" />
+          </svg>
+          <svg height="2" width="full">
+            <line x1="0" y1="1" x2="100" y2="1" className="dashed-line-pulse rotate-45" />
+          </svg>
+          
         </div>
       )}
 
@@ -60,7 +65,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
               <h4>Paper 1</h4>
             </div>
             {visibleDivs >= 5 && (
-            <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full"></span>
+              <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full"></span>
             )}
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -69,7 +74,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
               <h4>Paper 2</h4>
             </div>
             {visibleDivs >= 5 && (
-            <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full"></span>
+              <span className="min-h-20 w-0.5 bg-[#95DDFF] animate-pulse rounded-full"></span>
             )}
           </div>
         </div>
@@ -79,12 +84,12 @@ const Loading = ({ showLoading }: LoadingProps) => {
         <div className="load flex gap-28 justify-center items-center fade-in">
           <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px]">
             <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-            <TypewriterText text="Reviewing.." repeat={true}/>
+            <TypewriterText text="Reviewing.." repeat={true} />
           </div>
           <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px]">
             <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
             <h4>
-              <TypewriterText text="Reviewing.." repeat={true}/>
+              <TypewriterText text="Reviewing.." repeat={true} />
             </h4>
           </div>
         </div>

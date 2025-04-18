@@ -18,7 +18,6 @@ export default function UploadForm({
   );
   const [chatloading, setChatloading] = useState<boolean>(false);
 
-  console.log(chatmessages);
 
   return (
     <>
@@ -26,7 +25,7 @@ export default function UploadForm({
         <Chatbox messages={chatmessages} loading={chatloading} />
         <Upload
           setResponseData={setResponseData}
-          setLoading={setLoading}
+          setLoading={setLoading} 
           setChatLoading={setChatloading}
           messages={chatmessages}
           setMessages={setMessages}

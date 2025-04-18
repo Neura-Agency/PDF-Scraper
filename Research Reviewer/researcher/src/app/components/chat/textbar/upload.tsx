@@ -60,6 +60,8 @@
       setQuestion(e.target.value);
     };
 
+    console.log(messages);
+    
     return (
       <>
         <div className="flex items-center gap-4">
@@ -69,8 +71,7 @@
               question={question}
               setQuestion={setQuestion}
               onAnswer={(user, aiResponse) => {
-                // Extract the relevant string from the API response
-                const aiMessage = aiResponse || "No response"; // Adjust based on your API response structure
+                const aiMessage = aiResponse || "No response"; 
                 setMessages((prev) => [...prev, { user, ai: aiMessage }]);
               }}
               setLoading={setChatLoading}
