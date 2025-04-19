@@ -14,11 +14,11 @@ const Chatbox = ({ messages = [], loading }: ChatboxProps) => {
   }, [messages]);
 
   return (
-    <div className="w-full h-full overflow-y-auto custom-scrollbar">
-      <div className="flex flex-col rounded-4xl bg-[#000B16]/70 border-1 border-[#27d2f070] w-full h-full">
-        <main className="p-8 w-full mx-auto overflow-y-auto">
+    <div className="w-full h-full flex flex-col">
+      <div className="flex-1 overflow-hidden rounded-4xl bg-[#000B16]/70 border-1 border-[#27d2f070]">
+        <main className="h-full overflow-y-auto custom-scrollbar p-8">
           <h1 className="text-3xl font-bold mb-4">Research Reviewer</h1>
-          <div className="space-y-4 mb-4">
+          <div className="space-y-4">
             {messages.map((msg, idx) => (
               <div key={idx}>
                 <div className="flex justify-end mb-4">
