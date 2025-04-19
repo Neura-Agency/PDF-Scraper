@@ -24,7 +24,7 @@ export default function SubmitButton({
 
     try {
       const response = await axios.post("/api/ask", { question });
-      const aiResponse = response.data.answer.raw || "No response from AI.";
+      const aiResponse = response.data.answer || "No response from AI.";
       console.log("AI Response:", aiResponse);
       onAnswer(question, aiResponse);
     } catch (error) {
