@@ -6,6 +6,7 @@ import TextBox from "./textbox";
 
 interface UploadProps {
   setResponseData: (data: string) => void;
+  setaiResponseData: (data: string) => void;
   setLoading: (loading: boolean) => void;
   setChatLoading: (loading: boolean) => void;
   messages: { user: string; ai: string }[];
@@ -18,6 +19,7 @@ export default function Upload({
   setResponseData,
   setLoading,
   setChatLoading,
+  setaiResponseData,
   messages,
   setMessages,
 }: UploadProps) {
@@ -57,20 +59,19 @@ export default function Upload({
     setQuestion(e.target.value);
   };
 
-
   return (
     <>
       <div className="flex items-center gap-4">
         <div className="chat flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
           <TextBox value={question} onChange={handleChange} />
           <SubmitButton
+            setResponseData={setaiResponseData}
             question={question}
             setQuestion={setQuestion}
             onAnswer={(user, aiResponse) => {
               if (!aiResponse) {
                 setMessages((prev) => [...prev, { user, ai: "Processing..." }]); // Placeholder for AI response
               } else {
-
                 setMessages((prev) => {
                   const updatedMessages = [...prev];
                   updatedMessages[updatedMessages.length - 1].ai = aiResponse;

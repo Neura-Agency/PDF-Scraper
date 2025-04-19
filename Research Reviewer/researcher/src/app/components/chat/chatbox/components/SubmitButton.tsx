@@ -7,10 +7,12 @@ interface SubmitButtonProps {
   setQuestion: (q: string) => void;
   setLoading: (loading: boolean) => void;
   onAnswer: (user: string, ai?: string) => void;
+  setResponseData: (data: string) => void;
 }
 
 export default function SubmitButton({
   question,
+  setResponseData,
   setQuestion,
   setLoading,
   onAnswer,
@@ -25,6 +27,7 @@ export default function SubmitButton({
     try {
       const response = await axios.post("/api/ask", { question });
       const aiResponse = response.data.answer || "No response from AI.";
+      setResponseData(aiResponse.data.answer);
       console.log("AI Response:", aiResponse);
       onAnswer(question, aiResponse);
     } catch (error) {
