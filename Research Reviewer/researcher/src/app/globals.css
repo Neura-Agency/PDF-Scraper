@@ -59,7 +59,7 @@ p{
 
 .dashed-line-pulse {
   stroke: #ffffff;
-  stroke-width: 2;
+  stroke-width: 1;
   stroke-dasharray: 5, 5;
   animation: dashPulseforward 1s linear infinite;
   stroke-linecap: round;
@@ -69,25 +69,26 @@ p{
   stroke-width: 2;
   stroke-dasharray: 5, 100;
   stroke-dashoffset: 0;
-  animation: singledashfarward 0.5s linear infinite;
+  animation: singledashfarward 1s linear infinite;
   backdrop-filter: blur(10px);
+  box-shadow: 2px 2px 10px 2px #95DDFF;
+}
+.dashed-line-pulse-reverse {
+  stroke: #ffffff;
+  stroke-width: 1;
+  stroke-dasharray: 5, 5;
+  animation: dashPulsebackward 1s linear infinite;
+  stroke-linecap: round;
 }
 .pulsebackward {
   stroke: #95DDFF;
   stroke-width: 2;
   stroke-dasharray: 5, 100;
   stroke-dashoffset: 0;
-  animation: singledashbackward 0.5s linear infinite;
+  animation: singledashbackward 1s linear infinite;
   backdrop-filter: blur(10px);
 }
 
-.dashed-line-pulse-reverse {
-  stroke: #ffffff;
-  stroke-width: 2;
-  stroke-dasharray: 5, 5;
-  animation: dashPulsebackward 1s linear infinite;
-  stroke-linecap: round;
-}
 
 @keyframes dashPulseforward {
   to {
@@ -108,5 +109,25 @@ p{
 @keyframes dashPulsebackward {
   to {
     stroke-dashoffset: 10;
+  }
+}
+
+.reviewer-card {
+  box-shadow: 0px 0px 0px 0px #95DDFF; 
+  animation: boxShadowPulse 1s infinite; 
+}
+
+@keyframes boxShadowPulse {
+  0% {
+    box-shadow: 0px 0px 0px 0px #95DDFF; 
+  }
+  20% {
+    box-shadow: 0px 0px 8px 1px #95DDFF; 
+  }
+  40% {
+    box-shadow: 0px 0px 0px 0px #95DDFF; 
+  }
+  100% {
+    box-shadow: 0px 0px 0px 0px #95DDFF;
   }
 }

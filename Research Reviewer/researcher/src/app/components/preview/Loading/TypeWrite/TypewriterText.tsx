@@ -12,9 +12,9 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, repeat = false })
   const typedText = useTypewriter({ text, speed: 70, repeat });
 
   return (
-    <h1 className="">
+    <h1 className="flex text-center items-center">
       {typedText}
-      <span className="animate-blink">|</span>
+      <span className="animate-pulse">|</span>
     </h1>
   );
 };

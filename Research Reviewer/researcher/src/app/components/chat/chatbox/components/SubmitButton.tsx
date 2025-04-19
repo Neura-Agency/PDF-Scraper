@@ -6,7 +6,7 @@ interface SubmitButtonProps {
   question: string;
   setQuestion: (q: string) => void;
   setLoading: (loading: boolean) => void;
-  onAnswer: (user: string, ai: string) => void;
+  onAnswer: (user: string, ai?: string) => void;
 }
 
 export default function SubmitButton({
@@ -18,24 +18,24 @@ export default function SubmitButton({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClick = async () => {
-    if (!question.trim()) return;
-
+    if (!question.trim()) return; // Prevent empty submissions
     setLoading(true);
-    setIsSubmitting(true);
+
+    // Add the user's question to the chatbox immediately
+    onAnswer(question);
 
     try {
       const response = await axios.post("/api/ask", { question });
-      const aiAnswer = response.data?.answer.raw || "No response.";
+      const aiResponse = response.data.answer.raw;
 
-
-      onAnswer(question, aiAnswer);
-
-      setQuestion("");
+      // Update the AI's response in the chatbox
+      onAnswer(question, aiResponse);
     } catch (error) {
-      console.error("Error getting answer:", error);
+      console.error("Error fetching AI response:", error);
+      onAnswer(question, "Error: Unable to fetch response.");
     } finally {
-      setIsSubmitting(false);
       setLoading(false);
+      setQuestion(""); // Clear the input field
     }
   };
 

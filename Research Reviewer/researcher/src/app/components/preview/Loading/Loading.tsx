@@ -24,9 +24,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
       {visibleDivs >= 1 && (
         <div className="load flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 w-[50%] fade-in">
           <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-          <h4>
             <TypewriterText text="Extracting Data.." />
-          </h4>
         </div>
       )}
 
@@ -46,9 +44,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
         <div className="load flex items-center justify-center border-1 mt-6.5 border-[#95DDFF] bg-[#000B16]/70 p-2 w-32 h-32 rotate-45 fade-in">
           <div className="flex items-center justify-center gap-2 -rotate-45">
             <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-            <h4>
               <TypewriterText text="Processing.." />
-            </h4>
           </div>
         </div>
       )}
@@ -73,9 +69,9 @@ const Loading = ({ showLoading }: LoadingProps) => {
       {visibleDivs >= 4 && (
         <div className="load flex gap-30 fade-in">
           <div className="flex flex-col items-center justify-center">
-            <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 px-6">
+            <div className="flex items-center justify-center text-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 px-6">
               <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-              <h4>Paper 1</h4>
+              <h5 className="">Paper 1</h5>
             </div>
             {visibleDivs >= 5 && (
               <svg height="2" width="100" className="rotate-90 my-13">
@@ -93,7 +89,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 px-6">
               <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-              <h4>Paper 2</h4>
+              <h5 >Paper 2</h5>
             </div>
             {visibleDivs >= 5 && (
               <svg height="2" width="100" className="rotate-90 my-13">
@@ -112,15 +108,13 @@ const Loading = ({ showLoading }: LoadingProps) => {
       )}
       {visibleDivs >= 6 && (
         <div className="load flex gap-28 justify-center items-center fade-in">
-          <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px]">
+          <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px] reviewer-card">
             <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
             <TypewriterText text="Reviewing.." repeat={true} />
           </div>
-          <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px]">
+          <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-2xl bg-[#000B16]/70 p-2 px-6 w-[150px] reviewer-card">
             <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-            <h4>
               <TypewriterText text="Reviewing.." repeat={true} />
-            </h4>
           </div>
         </div>
       )}
