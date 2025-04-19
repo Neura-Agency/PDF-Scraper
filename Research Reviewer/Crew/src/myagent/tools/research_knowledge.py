@@ -10,13 +10,13 @@ class ResearchKnowledgeTool(BaseTool):
         default="Tool to access and analyze research paper content and reviews",
         description="Description of what the tool does"
     )
-    
-    def _run(self, query: str, review_content: Optional[str] = None) -> str:
-        """Execute the research knowledge tool"""
-        if not review_content:
+
+    review_content: Optional[str] = None  # ✅ Add this
+
+    def _run(self, query: str) -> str:
+        if not self.review_content:
             return "No review content available to analyze."
-        return f"Analysis based on the review content: {review_content}"
+        return f"Analysis based on the review content: {self.review_content}"
 
     async def _arun(self, query: str) -> Any:
-        """Async version of the tool"""
         raise NotImplementedError("This tool does not support async operations")

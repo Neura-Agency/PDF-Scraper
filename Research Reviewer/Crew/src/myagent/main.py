@@ -65,7 +65,12 @@ async def ask_question(request: QuestionRequest):
     myagent = Myagent()
     crew = myagent.chat_crew()
 
-    review = final_review_content
+    file_path = "Crew/knowledge/final_review.md"
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as f:
+            review = f.read()
+    else:
+        review = "No review content available."
     
     input = { "question": request.question,
             "review_content": review}
@@ -90,7 +95,7 @@ async def shutdown_event():
 @app.get("/myagent", response_class=HTMLResponse)
 @app.post("/myagent")
 async def run_crew():
-    global final_review_content 
+    global final_review_content
     agent = Myagent()
     crew = agent.crew()
     
@@ -108,7 +113,7 @@ async def run_crew():
         if os.path.exists(file_path):
             with open(file_path, "r", encoding="utf-8") as f:
                 md_content = f.read()
-                final_review_content = md_content 
+                final_review_content = md_content  # Store the final review content
                 html_content = markdown.markdown(md_content)
                 return HTMLResponse(content=html_content)
         else:

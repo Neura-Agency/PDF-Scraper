@@ -36,12 +36,21 @@ class Myagent():
 
     @agent
     def ReviewChatBot(self) -> Agent:
-        # Create a new instance of the tool for each agent
+        review_content_path = "Crew/knowledge/final_review.md"
+        try:
+            with open(review_content_path, "r", encoding="utf-8") as f:
+                review_content = f.read()
+        except FileNotFoundError:
+            review_content = "No review content available."
+
+        tool = ResearchKnowledgeTool(review_content=review_content)
+
         return Agent(
             config=self.agents_config['ReviewChatBot'],
-            tools=[ResearchKnowledgeTool()],
+            tools=[tool],
             verbose=True
         )
+
 
     @task
     def research_task(self) -> Task:

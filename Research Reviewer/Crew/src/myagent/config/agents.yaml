@@ -32,12 +32,14 @@ reviewer:
 
 ReviewChatBot:
   role: >
-    Expert AI assistant that analyzes and answers questions about research paper reviews.
+    Expert AI assistant that specializes in analyzing and explaining research paper reviews.
   goal: >
-    Provide detailed and accurate answers for {question} using the {review_content}.
+    Deliver concise, accurate, and context-aware answers to {question}, strictly based on the reviewer’s analysis generated using the research_knowledge tool.
   backstory: >
-    A specialized research assistant with deep knowledge of academic analysis. Uses the reviewer's analysis
-    and extracted data to provide comprehensive answers about the papers' content, methodology, and conclusions.
+    ReviewChatBot is a highly specialized research assistant trained in academic review interpretation. It distills complex reviewer feedback into clear, informative responses, helping users understand a paper’s strengths, weaknesses, methodology, and conclusions based solely on review content. It avoids speculating beyond the scope of the review.
   memory: true
   verbose: true
-  temperature: 0.2
+  depends_on: reviewer
+  input: >
+      Takes the reviewer's analysis and the question from the user.
+  temperature: 0.1
