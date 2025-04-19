@@ -36,21 +36,26 @@ class Myagent():
 
     @agent
     def ReviewChatBot(self) -> Agent:
-        review_content_path = "Crew/knowledge/final_review.md"
+        # Get the absolute path to the knowledge directory
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        review_content_path = os.path.join(base_dir, "knowledge", "final_review.md")
+        
         try:
-            with open(review_content_path, "r", encoding="utf-8") as f:
-                review_content = f.read()
-        except FileNotFoundError:
-            review_content = "No review content available."
-
-        tool = ResearchKnowledgeTool(review_content=review_content)
-
-        return Agent(
-            config=self.agents_config['ReviewChatBot'],
-            tools=[tool],
-            verbose=True
-        )
-
+            knowledge_source = TextFileKnowledgeSource(
+                file_paths=[review_content_path]  
+            )
+            
+            return Agent(
+                config=self.agents_config['ReviewChatBot'],
+                verbose=True,
+                knowledge_sources=[knowledge_source]
+            )
+        except Exception as e:
+            print(f"[DEBUG] Error creating knowledge source: {e}")
+            return Agent(
+                config=self.agents_config['ReviewChatBot'],
+                verbose=True
+            )
 
     @task
     def research_task(self) -> Task:

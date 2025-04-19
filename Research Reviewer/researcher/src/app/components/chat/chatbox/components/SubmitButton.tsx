@@ -18,24 +18,21 @@ export default function SubmitButton({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClick = async () => {
-    if (!question.trim()) return; // Prevent empty submissions
+    if (!question.trim()) return; 
     setLoading(true);
-
-    // Add the user's question to the chatbox immediately
     onAnswer(question);
 
     try {
       const response = await axios.post("/api/ask", { question });
-      const aiResponse = response.data.answer.raw;
-
-      // Update the AI's response in the chatbox
+      const aiResponse = response.data.answer.raw || "No response from AI.";
+      console.log("AI Response:", aiResponse);
       onAnswer(question, aiResponse);
     } catch (error) {
       console.error("Error fetching AI response:", error);
       onAnswer(question, "Error: Unable to fetch response.");
     } finally {
       setLoading(false);
-      setQuestion(""); // Clear the input field
+      setQuestion(""); 
     }
   };
 

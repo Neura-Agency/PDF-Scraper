@@ -53,13 +53,10 @@ export default function Upload({
       setLoading(false);
     }
   };
-
-  console.log(messages);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value);
   };
 
-  console.log(messages);
 
   return (
     <>
@@ -70,11 +67,10 @@ export default function Upload({
             question={question}
             setQuestion={setQuestion}
             onAnswer={(user, aiResponse) => {
-              // Add the user's question to the chatbox immediately
               if (!aiResponse) {
                 setMessages((prev) => [...prev, { user, ai: "Processing..." }]); // Placeholder for AI response
               } else {
-                // Update the AI's response when it arrives
+
                 setMessages((prev) => {
                   const updatedMessages = [...prev];
                   updatedMessages[updatedMessages.length - 1].ai = aiResponse;

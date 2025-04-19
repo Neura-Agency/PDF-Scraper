@@ -43,7 +43,15 @@ review_task:
 
 chat_task:
   description: >
-    Answer user questions using the complete review and extracted data
+    Respond to {question} by analyzing the full review and relevant extracted information.
+    Ensure the answers are coherent, well-structured, and reference specific parts of the source material.
   expected_output: >
-    A detailed answer that references specific parts of the review and extracted data
+    A thoughtful and detailed response that directly addresses the user’s question, 
+    includes references to relevant sections of the review, and highlights key findings or insights 
+    drawn from the extracted data.
   agent: ReviewChatBot
+  quality_criteria:
+    - Relevance: The answer must clearly relate to the user's question.
+    - Traceability: Reference specific parts of the review or data.
+    - Clarity: Use simple and professional language suitable for academic or technical readers.
+    - Structure: Format the answer using headings, bullet points, or short paragraphs if needed.
