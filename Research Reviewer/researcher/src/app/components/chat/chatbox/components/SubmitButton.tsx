@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 interface SubmitButtonProps {
   question: string;
@@ -26,8 +27,7 @@ export default function SubmitButton({
 
     try {
       const response = await axios.post("/api/ask", { question });
-      const aiResponse = response.data.answer || "No response from AI.";
-      setResponseData(aiResponse.data.answer);
+      const aiResponse = response.data.answer.raw || "No response from AI.";
       console.log("AI Response:", aiResponse);
       onAnswer(question, aiResponse);
     } catch (error) {

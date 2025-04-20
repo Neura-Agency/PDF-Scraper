@@ -76,8 +76,6 @@ async def ask_question(request: QuestionRequest):
             "review_content": review}
     if not request.question:
         raise HTTPException(status_code=400, detail="Question is required")
-
-    print(f"[DEBUG] Response from ReviewChatBot: {request.question}")
     try:
         
         response = crew.kickoff(inputs=input)
