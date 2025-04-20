@@ -43,7 +43,7 @@ export default function SubmitButton({
     <button
       onClick={handleClick}
       disabled={isSubmitting}
-      className="bg-[url('/images/send.png')] bg-contain bg-no-repeat w-10 h-9 m-auto cursor-pointer mx-4 p-2 border-1  border-[#27d2f0] rounded-full"
+      className="bg-[url('/images/send.png')] bg-contain bg-no-repeat w-9 h-9 cursor-pointer p-2 rotate-90 "
     > 
     </button>
   );

@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import SubmitButton from "../chatbox/components/SubmitButton";
 import TextBox from "./textbox";
+import Search from "../chatbox/components/search";
 
 interface UploadProps {
   setResponseData: (data: string) => void;
@@ -64,23 +65,29 @@ export default function Upload({
       <div className="flex items-center gap-4">
         <div className="chat flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
           <TextBox value={question} onChange={handleChange} />
-          <SubmitButton
-            setResponseData={setaiResponseData}
-            question={question}
-            setQuestion={setQuestion}
-            onAnswer={(user, aiResponse) => {
-              if (!aiResponse) {
-                setMessages((prev) => [...prev, { user, ai: "Processing..." }]); // Placeholder for AI response
-              } else {
-                setMessages((prev) => {
-                  const updatedMessages = [...prev];
-                  updatedMessages[updatedMessages.length - 1].ai = aiResponse;
-                  return updatedMessages;
-                });
-              }
-            }}
-            setLoading={setChatLoading}
-          />
+          <div className="flex items-center gap-2 mx-2">
+            <SubmitButton
+              setResponseData={setaiResponseData}
+              question={question}
+              setQuestion={setQuestion}
+              onAnswer={(user, aiResponse) => {
+                if (!aiResponse) {
+                  setMessages((prev) => [
+                    ...prev,
+                    { user, ai: "Processing..." },
+                  ]); // Placeholder for AI response
+                } else {
+                  setMessages((prev) => {
+                    const updatedMessages = [...prev];
+                    updatedMessages[updatedMessages.length - 1].ai = aiResponse;
+                    return updatedMessages;
+                  });
+                }
+              }}
+              setLoading={setChatLoading}
+            />
+            <Search />
+          </div>
         </div>
 
         <div className="flex items-center gap-2 p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
