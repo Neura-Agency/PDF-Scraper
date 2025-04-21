@@ -56,6 +56,7 @@ async def root():
 # Define the request body schema
 class QuestionRequest(BaseModel):
     question: str
+    search: bool
 
 @app.post("/ask")
 async def ask_question(request: QuestionRequest):
@@ -73,7 +74,8 @@ async def ask_question(request: QuestionRequest):
         review = "No review content available."
     
     input = { "question": request.question,
-            "review_content": review}
+            "review_content": review, "search": request.search}
+    
     if not request.question:
         raise HTTPException(status_code=400, detail="Question is required")
     try:

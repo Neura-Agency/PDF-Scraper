@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 
 interface SubmitButtonProps {
   question: string;
+  search: boolean;
   setQuestion: (q: string) => void;
   setLoading: (loading: boolean) => void;
   onAnswer: (user: string, ai?: string) => void;
@@ -13,6 +14,7 @@ interface SubmitButtonProps {
 
 export default function SubmitButton({
   question,
+  search,
   setResponseData,
   setQuestion,
   setLoading,
@@ -26,7 +28,7 @@ export default function SubmitButton({
     onAnswer(question);
 
     try {
-      const response = await axios.post("/api/ask", { question });
+      const response = await axios.post("/api/ask", { question, search });
       const aiResponse = response.data.answer.raw || "No response from AI.";
       console.log("AI Response:", aiResponse);
       onAnswer(question, aiResponse);

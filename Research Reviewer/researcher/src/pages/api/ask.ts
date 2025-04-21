@@ -5,11 +5,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
 
   const { question } = req.body;
+  const { search } = req.body;
   if (!question) return res.status(400).json({ message: 'Question is required' });
 
   try {
-    console.log('Received question:', question);
-    const response = await axios.post('http://127.0.0.1:8000/ask', { question });
+    const response = await axios.post('http://127.0.0.1:8000/ask', { question, search });
     const answer = response.data.answer;
 
     res.status(200).json({ answer });

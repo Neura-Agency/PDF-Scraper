@@ -34,5 +34,3 @@ if __name__ == "__main__":
 
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(output_text)
-
-        print(f"[{file_paths}] Text Extracted:\n{output_text}\n")

@@ -25,6 +25,7 @@ export default function Upload({
   setMessages,
 }: UploadProps) {
   const [question, setQuestion] = useState("");
+  const [search, setSearch] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
   const [responseText, setResponseText] = useState<string>("");
@@ -69,13 +70,14 @@ export default function Upload({
             <SubmitButton
               setResponseData={setaiResponseData}
               question={question}
+              search={search}
               setQuestion={setQuestion}
               onAnswer={(user, aiResponse) => {
                 if (!aiResponse) {
                   setMessages((prev) => [
                     ...prev,
                     { user, ai: "Processing..." },
-                  ]); // Placeholder for AI response
+                  ]);
                 } else {
                   setMessages((prev) => {
                     const updatedMessages = [...prev];
@@ -86,7 +88,7 @@ export default function Upload({
               }}
               setLoading={setChatLoading}
             />
-            <Search />
+            <Search setsearch={setSearch} />
           </div>
         </div>
 
