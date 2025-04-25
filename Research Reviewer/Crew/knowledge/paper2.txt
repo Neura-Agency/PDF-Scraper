@@ -1,123 +1,277 @@
+An artificial intelligence framework and its 
+bias for brain tumor segmentation: A 
+narrative review 
+Author links open overlay 
+panelSuchismita Das a b, G.K. Nayak a, Luca Saba c, Mannudeep Kalra d, Jasjit 
+S. Suri e, Sanjay Saxena a 
+Show more 
+Add to Mendeley 
+Share 
+Cite 
+https://doi.org/10.1016/j.compbiomed.2022.105273Get rights and content 
+Highlights 
+• 
+• 
+PRISMA search strategy and statistical distributions for brain tumor segmentation 
+(BTS). 
+• 
+• 
+Comparison between different AI models, its qualitative and quantitative analysis. 
+• 
+• 
+Ranking Score Method for Risk-of-bias (RoB) estimation in AI. 
+• 
+• 
+Usage of 32 AI attributes for mean score computation and cutoff determination. 
+• 
+• 
+Primary and secondary recommendations for lowering the RoB in AI for BTS. 
+Abstract 
+Background 
+Artificial intelligence (AI) has become a prominent technique for medical diagnosis and 
+represents an essential role in detecting brain tumors. Although AI-based models are 
+widely used in brain lesion segmentation (BLS), understanding their effectiveness is 
+challenging due to their complexity and diversity. Several reviews on brain tumor 
+segmentation are available, but none of them describe a link between the threats due to 
+risk-of-bias (RoB) in AI and its architectures. In our review, we focused on linking RoB 
+and different AI-based architectural Cluster in popular DL framework. Further, due to 
+variance in these designs and input data types in medical imaging, it is necessary to 
+present a narrative review considering all facets of BLS. 
+Approach 
+The proposed study uses a PRISMA strategy based on 75 relevant studies found by 
+searching PubMed, Scopus, and Google Scholar. Based on the architectural 
+evolution, DL studies were subsequently categorized into four classes: convolutional 
+neural network (CNN)-based, encoder-decoder (ED)-based, transfer learning (TL)-
+based, and hybrid DL (HDL)-based architectures. These studies were then analyzed 
+considering 32 AI attributes, with clusters including AI architecture, imaging modalities, 
+hyper-parameters, performance evaluation metrics, and clinical evaluation. Then, after 
+these studies were scored for all attributes, a composite score was computed, 
+normalized, and ranked. Thereafter, a bias cutoff (AP(ai)Bias 1.0, AtheroPoint, 
+Roseville, CA, USA) was established to detect low-, moderate- and high-bias studies. 
+Conclusion 
+The four classes of architectures, from best-to worst-performing, are 
+TL > ED > CNN > HDL. ED-based models had the lowest AI bias for BLS. This study 
+presents a set of three primary and six secondary recommendations for lowering the 
+RoB. 
 Introduction 
-LangChain is a framework for developing applications powered by large language models 
-(LLMs). 
-LangChain simplifies every stage of the LLM application lifecycle: 
+According to data collected by Global Cancer Statistics in 2020 [1], brain tumors 
+represent one of the most life-threatening cancers and the 21st most common type of 
+cancer worldwide. Moreover, nearly 90% of primary central nervous system (CNS) 
+tumors are brain tumors [2]. Brain tumors also have a significant financial impact, as 
+treatments incur a mean cost of $2788 ± 3719 [3], which can vary depending on the 
+imaging technique used. It is estimated that it costs $62,602 to extend a brain tumor 
+patient's life by 16.3 months [3] when employing modern treatment techniques. Due to 
+this financial burden, the death rate of brain tumor patients increases daily; the five-year 
+average survival rate of the patients is 72.5% [4]. 
+Medical imaging is considered one of the most promising and fastest ways to diagnose 
+brain tumors. Magnetic resonance imaging (MRI) and computed tomography (CT) are 
+typically employed for brain scans [5]. MRI scans are among the most preferred 
+methods for diagnosing brain tumors [6], as they provide more precise and detailed 
+pictures than CT scans. MRI can also provide better images of soft tissue than CT and 
+is useful for tissue characterization. Different MR images, such as T1-weighted, post-
+contrast T1-weighted (T1ce), T2-weighted, and fluid-attenuated inversion recovery 
+(FLAIR) protocols [7] provide complementary information that helps segment the brain 
+tumor and its surrounding tissues. The visual output of the different MRI modalities 
+along with the segmented tumor regions, namely, necrosis, enhancing, and edema 
+types [8] is shown in Fig. 1. The three tumor regions used in the practical clinical 
+application are: (i) the necrosis region (consisting of non-enhancing and enhancing part 
+of tumor), (ii) the enhancing region (consisting of enhancing part of the whole tumor), 
+and (iii) the peritumoral edema region (consisting of edema region of the whole tumor)”. 
+Glioma, which develops from glial cells, is one of the most common malignant tumors 
+[9]. It is categorized into low-grade glioma (LGG), which grows slowly, and high-grade 
+glioma (HGG), which is highly malignant and potentially life-threatening. HGG is 
+untreatable in some cases, even when advanced imaging, radiotherapy, and surgical 
+techniques are employed. HGG segmentation is a challenging task [10,11] due to cell 
+mutations, irregular growth in multiple tissues, and the complex and diverse nature of 
+HGG. Treatment is also challenging because tumor characteristics vary from patient to 
+patient; therefore, it can be difficult to use a large number of scans and volumes when 
+attempting to visualize and quantify lesions. These images also contain various artifacts 
+[12], such as irregularities, pixel variations, and inhomogeneity, which are acquired 
+through the use of different scanners. Therefore, an accurate and fast brain tumor 
+segmentation (BTS) method is needed to handle binary (high and low) and multiple 
+types of risk classes (e.g., low, mild, moderate, and high), thus promoting early 
+diagnosis and cost-effective treatment. 
+Artificial intelligence (AI) has become a prominent solution for medical diagnoses and is 
+essential to detecting brain tumors. Generation-wise segmentation technologies are 
+depicted in Fig. 2. The first generation of brain lesion segmentation (BLS) was primarily 
+characterized by the conventional method [13,14]. The second and third generations 
+mainly consisted of machine learning (ML)-based [10,15] and DL-based AI 
+technologies. ML and DL differ in terms of how they derive features from instances. ML 
+classification models often emerge as independent analytical learning models and 
+obtain precise predictions using features that have been extracted. ML technology has 
+been shown to be useful for tissue characterization in medical imaging applications [16]. 
+The performance of ML methods [17,18] depends solely on the radiologist or researcher 
+and their expertise in selecting the most compelling features, which results in biased 
+methods. 
+Therefore, researchers have become interested in AI-based deep learning (DL) models 
+[19] that utilize various statistical knowledge layers and convolutional operations to 
+obtain features and employ predictions [20,21]. DL-driven medical image analyses can 
+change the current roles of radiologists and clinicians, allowing them to devote less time 
+to screening medical images and concentrate more on making diagnoses and treatment 
+decisions. Therefore, although DL techniques are more expensive than other 
+techniques in terms of space and computation time, they produce exact predictions 
+when implemented in a widespread dataset. 
+After continuing an active on BLS for some past years, we observed that, to date, no 
+review article on BLS has connected the latest AI technologies with the tumor imaging 
+paradigm. This motivates us to present a systematic review on BLS using the latest AI 
+technology of the deep learning paradigm. In this review, we discussed and presented a 
+detailed statistical analysis of BLS in DL technology with respect to (i) DL-based AI 
+architectures, (ii) model hyper-parameters, (iii) imaging modalities, (iv) clinical 
+validation, and (v) scientific validation. Our finding from this analysis drives us towards 
+the main contribution of the proposed review, which is to classify the DL-based 
+segmentation model into four different categories (i.e., CNN-based, ED-based, TL-
+based, HDL-based) and then perform a depth-wise bias analysis of these models for a 
+BLS task. However, it is observed that there exists a bias in DL models for BLS, where 
+the performance is very high but clinically there are not reliable or the model did not 
+perform scientific or clinical validations or did not undergo hyper-parameterization to 
+optimize the AI models. For evaluating the bias in these studies, we employ an 
+AP(ai)Bias 1.0 (AtheroPoint, Roseville, CA, USA), which is based in essence on a 
+ranking score method (RSM) [22]. Using the 32 AI-based attributes, we grade the 
+attributes (using an AI expert with minimum of 10 years of experience), estimate the 
+final score, normalize it, and then rank these studies to determine the low-bias and 
+moderate-bias cutoffs. These bias studies are then linked to the AI architectures 
+providing recommendations for improving the AI system design. The proposed narrative 
+review selected the 75 best publications using the PRISMA model described in section 
+2. This review presents (i) a statistical distribution of AI attributes in BLS for different DL 
+architectures, (ii) AI architectures for tumor segmentation with a detailed explanation of 
+four DL architecture classes, and (iii) a comprehensive risk-of-bias (RoB) analysis 
+based on 32 different AI attributes such as dataset partitioning, activation function; 
+statistical analysis, and clinical validation. 
+The proposed narrative review selected the 75 best publications using the PRISMA 
+model described in section 2. This review presents (i) a statistical distribution of AI 
+attributes in BLS for different DL architectures, (ii) AI architectures for tumor 
+segmentation with a detailed explanation of four DL architecture classes, and (iii) a 
+comprehensive risk-of-bias (RoB) analysis based on 32 different AI attributes such as 
+dataset partitioning, activation function; statistical analysis, and clinical validation. 
+The rest of this paper is organized as follows: Section 2 briefly describes the PRISMA 
+model and statistical distributions; section 3 depicts the detailed classification of the DL 
+architecture, along with its pros and cons. Then, in section 4, the RoB analysis is carried 
+out—based on the analysis, a few recommendations are made to improve the bias of 
+the studies. Finally, a critical discussion is presented in section 5. 
+Section snippets 
+PRISMA model design 
+An extensive search was carried out on PubMed, Google Scholar, and Scopus. The 
+keywords used for selecting studies were “brain tumor segmentation,” “deep learning in 
+brain tumor segmentation,” “AI-based BLS,” “machine learning in brain tumor 
+segmentation,” “CNN in brain tumor/lesion extraction,” “transfer learning in brain 
+tumor/lesion extraction,” and “multiclass brain tumor classification.” Fig. 3 shows the 
+PRISMA model consisting of the brain tumor articles used in this study. 
+A total of 
+AI architecture for brain tumor segmentation 
+In the previous section, research trends in BTS and its importance, different BTS 
+algorithms, its statistics in terms of hyper-parameters, and AI attributes were discussed. 
+However, these parameters are used in every DL-based model to tune its performance, 
+and we have to focus on the internal structure of the DL-based model, which greatly 
+affects its design and implementation in research. Hence, this section presents a brief 
+outline of different generations of segmentation techniques used in 
+Risk-of-bias estimation and recommendations 
+We have seen a detailed layout of different DL-based architecture, along with their 
+performances and the AI attributes used in each of these models. However, each model 
+essentially performs convolutional operations to extract the features. Pre-processing 
+and over-fitting are also considered in each model to maximize the performance. To 
+perform a detailed study on the behavior of the models used by different authors, we 
+compute the bias studies of all articles and analyze them to make some 
+Critical discussion 
+The proposed study presented a narrative review for BTS using AI-based DL. Hence 
+the review starts by describing the search strategy using the PRISMA model, followed 
+by the statistical analysis of AI attributes. The review included 75 DL-based qualitative 
+articles on BLS. DL-based studies on BLS continue to gain the interest of researchers; 
+however, to the best of our knowledge, no review has focused on the architectural 
+evolution of DL while aiming to understand the AI bias for BLS. Therefore,  
+Conclusion 
+DL is the most recent efficient AI technique in BTS due to its automatic feature 
+extraction. We reviewed articles that employed four different DL architectural models 
+(i.e., CNN-based, ED-based, TL-based, and HDL-based) utilizing a certain operation 
+performed in each model for BLS. A statistical depth analysis was carried out. The 
+results were displayed as pie charts and bar charts showing the distributions of different 
+parameters such as image modalities, optimizers, activation function, 
+References (197) 
 • 
-Development: Build your applications using LangChain's open-
-source components and third-party integrations. Use LangGraph to build stateful agents 
-with first-class streaming and human-in-the-loop support. 
+A. Wadhwa et al. 
+A review on brain tumor segmentation of MRI images 
+Magn. Reson. Imaging 
+(Sep 2019) 
 • 
-Productionization: Use LangSmith to inspect, monitor and evaluate your applications, so 
-that you can continuously optimize and deploy with confidence. 
+H.-H. Chang et al. 
+An electrostatic deformable model for medical image segmentation 
+Comput. Med. Imag. Graph. 
+(2008) 
 • 
-Deployment: Turn your LangGraph applications into production-ready APIs and 
-Assistants with LangGraph Platform. 
- 
-LangChain implements a standard interface for large language models and related 
-technologies, such as embedding models and vector stores, and integrates with hundreds of 
-providers. See the integrations page for more. 
-Select chat model: 
-OpenAI▾ 
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-•   
-pip install -qU "langchain[openai]" 
- 
-import getpass 
-import os 
- 
-if not os.environ.get("OPENAI_API_KEY"): 
-  os.environ["OPENAI_API_KEY"] = getpass.getpass("Enter API key for OpenAI: 
-") 
- 
-from langchain.chat_models import init_chat_model 
- 
-model = init_chat_model("gpt-4o-mini", model_provider="openai") 
- 
-model.invoke("Hello, world!") 
- 
-NOTE 
-These docs focus on the Python LangChain library. Head here for docs on the JavaScript 
-LangChain library. 
-Architecture 
-The LangChain framework consists of multiple open-source libraries. Read more in 
-the Architecture page. 
+A. Aslam et al. 
+Improved edge detection algorithm for brain tumor segmentation 
+Procedia Comput. Sci. 
+(2015) 
 • 
-langchain-core: Base abstractions for chat models and other components. 
+K. Kamnitsas et al. 
+Efficient multi-scale 3D CNN with fully connected CRF for accurate brain 
+lesion segmentation 
+Med. Image Anal. 
+(2017) 
 • 
-Integration packages (e.g. langchain-openai, langchain-anthropic, etc.): Important 
-integrations have been split into lightweight packages that are co-maintained by the 
-LangChain team and the integration developers. 
+S. Bacchi et al. 
+Deep learning in the detection of high-grade glioma recurrence using multiple 
+MRI sequences: a pilot study 
+J. Clin. Neurosci. 
+(2019) 
 • 
-langchain: Chains, agents, and retrieval strategies that make up an application's cognitive 
-architecture. 
+D. Karimi et al. 
+Transfer learning in medical image segmentation: new insights from analysis 
+of the dynamics of model parameters and learned representations 
+Artif. Intell. Med. 
+(2021) 
 • 
-langchain-community: Third-party integrations that are community maintained. 
+K. Thapaliya et al. 
+Level set method with automatic selective local statistics for brain tumor 
+segmentation in MR images 
+Comput. Med. Imag. Graph. 
+(2013) 
 • 
-langgraph: Orchestration framework for combining LangChain components into 
-production-ready applications with persistence, streaming, and other key features. 
-See LangGraph documentation. 
-Guides 
-Tutorials 
-If you're looking to build something specific or are more of a hands-on learner, check out 
-our tutorials section. This is the best place to get started. 
-These are the best ones to get started with: 
+U. Ilhan et al. 
+Brain tumor segmentation based on a new threshold approach 
+Procedia Comput. Sci. 
+(2017) 
 • 
-Build a Simple LLM Application 
+S. Bonte et al. 
+Machine learning based brain tumour segmentation on limited data using local 
+texture and abnormality 
+Comput. Biol. Med. 
+(Jul 1 2018) 
 • 
-Build a Chatbot 
-• 
-Build an Agent 
-• 
-Introduction to LangGraph 
-Explore the full list of LangChain tutorials here, and check out other LangGraph tutorials 
-here. To learn more about LangGraph, check out our first LangChain Academy 
-course, Introduction to LangGraph, available here. 
-How-to guides 
-Here you’ll find short answers to “How do I….?” types of questions. These how-to guides 
-don’t cover topics in depth – you’ll find that material in the Tutorials and the API Reference. 
-However, these guides will help you quickly accomplish common tasks using chat 
-models, vector stores, and other common LangChain components. 
-Check out LangGraph-specific how-tos here. 
-Conceptual guide 
-Introductions to all the key parts of LangChain you’ll need to know! Here you'll find high 
-level explanations of all LangChain concepts. 
-For a deeper dive into LangGraph concepts, check out this page. 
-Integrations 
-LangChain is part of a rich ecosystem of tools that integrate with our framework and build 
-on top of it. If you're looking to get up and running quickly with chat models, vector stores, 
-or other LangChain components from a specific provider, check out our growing list 
-of integrations. 
-API reference 
-Head to the reference section for full documentation of all classes and methods in the 
-LangChain Python packages. 
-Ecosystem 
-🦜🛠️ LangSmith 
-Trace and evaluate your language model applications and intelligent agents to help you 
-move from prototype to production. 
-🦜🕸️ LangGraph 
-Build stateful, multi-actor applications with LLMs. Integrates smoothly with LangChain, but 
-can be used without it. LangGraph powers production-grade agents, trusted by Linkedin, 
-Uber, Klarna, GitLab, and many more. 
-Additional resources 
-Versions 
-See what changed in v0.3, learn how to migrate legacy code, read up on our versioning 
-policies, and more. 
-Security 
-Read up on security best practices to make sure you're developing safely with LangChain. 
-Contributing 
-Check out the developer's guide for guidelines on contributing and help getting your dev 
-environment set up. 
+M. Soltaninejad 
+Supervised learning based multimodal MRI brain tumour segmentation using 
+texture features from supervoxels 
+Comput. Methods Progr. Biomed. 
+(Apr 2018) 
+View more references 
+Cited by (93) 
+• A review on brain tumor segmentation based on deep learning methods with 
+federated learning techniques 
+2023, Computerized Medical Imaging and Graphics 
+Citation Excerpt : 
+In order to improve the generalization capabilities of deep models, it suggests prospective research 
+approaches for synthesizing high-quality artificial brain tumor cases. Das et al (Das et al., 2022). 
+employed a PRISMA methodology to classify 75 pertinent research works into four categories, 
+namely convolutional neural network (CNN), encoder-decoder (ED), transfer learning (TL), and 
+hybrid DL (HDL)-based architectures. 
+Show abstract 
+• Far wall plaque segmentation and area measurement in common and internal 
+carotid artery ultrasound using U-series architectures: An unseen Artificial 
+Intelligence paradigm for stroke risk assessment 
+2022, Computers in Biology and Medicine 
+Show abstract 
+• UNet Deep Learning Architecture for Segmentation of Vascular and Non-
+Vascular Images: A Microscopic Look at UNet Components Buffered With 
+Pruning, Explainable Artificial Intelligence, and Bias 
+2023, IEEE Access 
+• Attention-Based UNet Deep Learning Model for Plaque Segmentation in 
+Carotid Ultrasound for Stroke Risk Stratification: An Artificial Intelligence 
+Paradigm 
+2022, Journal of Cardiovascular Development and Disease 
+• Four Types of Multiclass Frameworks for Pneumonia Classification and Its 
+Validation in X-ray Scans Using Seven Types of Deep Learning Artificial 
+Intelligence Models 
+2022, Diagnostics 
+• Brain Tumor Detection using VGG19 model on Adadelta and SGD Optimizer 
+2022, 6th International Conference on Electronics, Communication and Aerospace 
+Technology, ICECA 2022 - Proceedings 
  

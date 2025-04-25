@@ -75,7 +75,7 @@ async def ask_question(request: QuestionRequest):
     
     input = { "question": request.question,
             "review_content": review, "search": request.search}
-    
+    print(request.search)
     if not request.question:
         raise HTTPException(status_code=400, detail="Question is required")
     try:
