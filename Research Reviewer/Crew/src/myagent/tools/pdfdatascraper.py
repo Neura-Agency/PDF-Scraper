@@ -1,13 +1,15 @@
-import fitz  
+import fitz  # PyMuPDF
 import sys
 import os
 
 def extract_text_from_pdf(pdf_path):
+    # Open the PDF file
     doc = fitz.open(pdf_path)
     text = ""
 
+    # Iterate through each page and extract text
     for page_num in range(len(doc)):
-        page = doc.load_page(page_num)
+        page = doc[page_num]
         text += page.get_text()
 
     doc.close()
@@ -27,8 +29,10 @@ if __name__ == "__main__":
         filename = os.path.basename(file_path).lower()
         if "paper2" in filename:
             output_filename = "paper2.txt"
-        if "paper1" in filename:
+        elif "paper1" in filename:
             output_filename = "paper1.txt"
+        else:
+            output_filename = "output.txt"
 
         output_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'knowledge', output_filename)
 
