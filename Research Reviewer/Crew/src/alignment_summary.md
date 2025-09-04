@@ -1,0 +1,1 @@
+I am unable to complete this task because the necessary files ("paper1.txt" and "paper2.txt") are missing. I need the content of these files to extract information, align findings, and create a structured summary.

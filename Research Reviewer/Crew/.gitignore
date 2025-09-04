@@ -1,0 +1,44 @@
+# Python cache / build
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Packaging / distribution
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Logs
+*.log
+
+# IDEs / editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / env
+.env
+.env.*.local
+
+# Generated data / artifacts (keep final_review.md if it's source of truth)
+knowledge/*.txt
+src/Crew/knowledge/*.txt
+
+# Optional: compiled extensions, temp files
+*.so
+*.dll
+*.exe

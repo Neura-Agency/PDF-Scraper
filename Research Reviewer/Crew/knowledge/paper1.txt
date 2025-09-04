@@ -1,217 +1,202 @@
-Get Started 
-Introduction 
-Build AI agent teams that work together to tackle complex tasks 
- 
- 
-What is CrewAI? 
-CrewAI is a lean, lightning-fast Python framework built entirely from 
-scratch—completely independent of LangChain or other agent frameworks. 
-CrewAI empowers developers with both high-level simplicity and precise low-
-level control, ideal for creating autonomous AI agents tailored to any scenario: 
-• 
-CrewAI Crews: Optimize for autonomy and collaborative intelligence, enabling 
-you to create AI teams where each agent has specific roles, tools, and goals. 
-• 
-CrewAI Flows: Enable granular, event-driven control, single LLM calls for 
-precise task orchestration and supports Crews natively. 
-With over 100,000 developers certified through our community courses, CrewAI 
-is rapidly becoming the standard for enterprise-ready AI automation. 
- 
- 
-How Crews Work 
-Just like a company has departments (Sales, Engineering, Marketing) working 
-together under leadership to achieve business goals, CrewAI helps you create an 
-organization of AI agents with specialized roles collaborating to accomplish 
-complex tasks. 
- 
-CrewAI Framework Overview 
-Component 
-Description 
-Key Features 
-Crew 
-The top-level organization 
-• Manages AI agent teams 
-• Oversees workflows 
-• Ensures collaboration 
-• Delivers outcomes 
-Component 
-Description 
-Key Features 
-AI Agents 
-Specialized team members 
-• Have specific roles (researcher, writer) 
-• Use designated tools 
-• Can delegate tasks 
-• Make autonomous decisions 
-Process 
-Workflow management system 
-• Defines collaboration patterns 
-• Controls task assignments 
-• Manages interactions 
-• Ensures efficient execution 
-Tasks 
-Individual assignments 
-• Have clear objectives 
-• Use specific tools 
-• Feed into larger process 
-• Produce actionable results 
- 
- 
-How It All Works Together 
-1. The Crew organizes the overall operation 
-2. AI Agents work on their specialized tasks 
-3. The Process ensures smooth collaboration 
-4. Tasks get completed to achieve the goal 
- 
- 
-Key Features 
-Role-Based Agents 
-Create specialized agents with defined roles, expertise, and goals - from 
-researchers to analysts to writers 
-Flexible Tools 
-Equip agents with custom tools and APIs to interact with external services and 
-data sources 
-Intelligent Collaboration 
-Agents work together, sharing insights and coordinating tasks to achieve 
-complex objectives 
-Task Management 
-Define sequential or parallel workflows, with agents automatically handling task 
-dependencies 
- 
- 
-How Flows Work 
-While Crews excel at autonomous collaboration, Flows provide structured 
-automations, offering granular control over workflow execution. Flows ensure 
-tasks are executed reliably, securely, and efficiently, handling conditional logic, 
-loops, and dynamic state management with precision. Flows integrate seamlessly 
-with Crews, enabling you to balance high autonomy with exacting control. 
- 
-CrewAI Framework Overview 
-Component 
-Description 
-Key Features 
-Flow 
-Structured workflow orchestration 
-• Manages execution paths 
-• Handles state transitions 
-• Controls task sequencing 
-• Ensures reliable execution 
-Component 
-Description 
-Key Features 
-Events 
-Triggers for workflow actions 
-• Initiate specific processes 
-• Enable dynamic responses 
-• Support conditional branching 
-• Allow for real-time adaptation 
-States 
-Workflow execution contexts 
-• Maintain execution data 
-• Enable persistence 
-• Support resumability 
-• Ensure execution integrity 
-Crew Support Enhances workflow automation 
-• Injects pockets of agency when needed 
-• Complements structured workflows 
-• Balances automation with intelligence 
-• Enables adaptive decision-making 
- 
- 
-Key Capabilities 
-Event-Driven Orchestration 
-Define precise execution paths responding dynamically to events 
-Fine-Grained Control 
-Manage workflow states and conditional execution securely and efficiently 
-Native Crew Integration 
-Effortlessly combine with Crews for enhanced autonomy and intelligence 
-Deterministic Execution 
-Ensure predictable outcomes with explicit control flow and error handling 
- 
- 
-When to Use Crews vs. Flows 
-Understanding when to use Crews versus Flows is key to maximizing the 
-potential of CrewAI in your applications. 
-Use Case 
-Recommended 
-Approach 
-Why? 
-Open-ended 
-research 
-Crews  
-When tasks require creative thinking, exploration, 
-and adaptation 
-Content 
-generation 
-Crews  
-For collaborative creation of articles, reports, or 
-marketing materials 
-Use Case 
-Recommended 
-Approach 
-Why? 
-Decision 
-workflows 
-Flows  
-When you need predictable, auditable decision 
-paths with precise control 
-API 
-orchestration 
-Flows  
-For reliable integration with multiple external 
-services in a specific sequence 
-Hybrid 
-applications 
-Combined approach 
-Use Flows to orchestrate overall process 
-with Crews handling complex subtasks 
- 
- 
-Decision Framework 
-• 
-Choose Crews when: You need autonomous problem-solving, creative 
-collaboration, or exploratory tasks 
-• 
-Choose Flows when: You require deterministic outcomes, auditability, or 
-precise control over execution 
-• 
-Combine both when: Your application needs both structured processes and 
-pockets of autonomous intelligence 
- 
- 
-Why Choose CrewAI? 
-• 🧠 Autonomous Operation: Agents make intelligent decisions based on their 
-roles and available tools 
-• 📝 Natural Interaction: Agents communicate and collaborate like human team 
-members 
-• 🛠️ Extensible Design: Easy to add new tools, roles, and capabilities 
-• 🚀 Production Ready: Built for reliability and scalability in real-world 
-applications 
-• 🔒 Security-Focused: Designed with enterprise security requirements in mind 
-• 💰 Cost-Efficient: Optimized to minimize token usage and API calls 
- 
- 
-Ready to Start Building? 
- 
-Build Your First Crew 
-Step-by-step tutorial to create a collaborative AI team that works together to 
-solve complex problems. 
- 
-Build Your First Flow 
-Learn how to create structured, event-driven workflows with precise control 
-over execution. 
- 
- 
-Install CrewAI 
-Get started with CrewAI in your development environment. 
- 
-Quick Start 
-Follow our quickstart guide to create your first CrewAI agent and get hands-on 
-experience. 
- 
-Join the Community 
-Connect with other developers, get help, and share your CrewAI experiences. 
- 
-Was this page helpful? 
-YesNo 
- 
+European Journal of Radiology
+Volume 176, July 2024, 111509
+Role of artificial intelligence in brain tumour
+imaging
+Author links open overlay panelEzekiel Chukwujindu a, Hafsa Faiz a, Sara AI-
+Douri b, Khunsa Faiz c, Alexandra De Sequeira d
+Show more
+Add to Mendeley
+Share
+Cite
+https://doi.org/10.1016/j.ejrad.2024.111509Get rights and content
+Abstract
+Artificial intelligence (AI) is a rapidly evolving field with many neuro-oncology
+applications. In this review, we discuss how AI can assist in brain tumour imaging,
+focusing on machine learning (ML) and deep learning (DL) techniques. We describe
+how AI can help in lesion detection, differential diagnosis, anatomic
+segmentation, molecular marker identification, prognostication, and pseudo-progression
+evaluation. We also cover AI applications in non-glioma brain tumours, such as brain
+metastasis, posterior fossa, and pituitary tumours. We highlight the challenges and
+limitations of AI implementation in radiology, such as data quality, standardization, and
+integration. Based on the findings in the aforementioned areas, we conclude that AI can
+potentially improve the diagnosis and treatment of brain tumours and provide a path
+towards personalized medicine and better patient outcomes.Introduction
+Central nervous system cancer is the tenth leading cause of death in men and women
+[1]. Brain tumour is not the primary cause of mortality, yet 40 % of all other cancer types
+can develop into brain cancer due to metastasis [1]. The diagnosis of brain tumors is
+predominantly based on neuroimaging findings, using techniques such as contrast-
+enhanced computed tomography (CT) or magnetic resonance imaging (MRI).
+Among the central nervous system (CNS) neoplasms, the most common type is Glioma
+originating from glial cells [2].
+Gliomas are heterogeneous groups of disease, with many different histotypes and
+molecular subtypes ranging from slow growing pilocytic astrocytoma to the aggressive
+glioblastoma multiforme (GBM). Given poor prognosis of patients with brain cancer at a
+higher stage, accurate grading is crucial for treatment and prognosis.
+Common tests used for tumour diagnosis and grade estimation include neurological
+examination, imaging, biopsies, and biomarkers. Biopsies are the gold standard, but
+invasive and risky.
+Techniques such as contrast-enhanced computed tomography (CT) or magnetic
+resonance imaging (MRI) are used for diagnosis of brain tumours. As they are non-
+invasive and accessible, many efforts have been made to increase the information from
+brain imaging.
+Conventional MRI sequences, which include pre- and postcontrast T1-weighted
+imaging, T2-weighted imaging, and T2-weighted fluid-attenuated inversion recovery
+(FLAIR) sequences, help delineate tumour volume and morphologic characteristics.
+Unfortunately, contrast enhancement is nonspecific, and the detection of foci of tumour
+infiltration within the T2-weighted FLAIR signal intensity abnormality is nearly impossible
+with conventional sequences [3].
+Advanced MRI methods, including diffusion-weighted imaging, diffusion tensor imaging,
+perfusion MRI and MR spectroscopy, are used clinically for grading gliomas and
+identifying regions of tumour infiltration. They are usually qualitative and vary across
+sites, units, and methods. With increasing incidence of brain tumours, [4] a non-
+invasive, automatic computer-aided tool that can diagnose and grade a tumour quickly
+is needed.One of the ways in which tumours can be swiftly diagnosed is through artificial
+intelligence. Artificial intelligence (AI) is defined as machines performing tasks
+characteristic of human intelligence [5]. AI-based algorithms have been used in the
+healthcare field to improve diagnosis, predict outcomes, guide efforts in drug discovery
+and for rapid data processing in clinical research. Moreover, neuroimaging research in
+AI has grown exponentially. There have been several articles published on the use of AI
+in brain tumour imaging. Ce et al [6] provided a description of AI-based models and a
+narrative review of their applications in various studies concerning brain imaging. Zhu et
+al [7] reviewed the latest machine learning-based AI applications in the radiomic
+analysis of brain tumours, providing a perspective on challenges and future avenues.
+However, other aspects of AI, such as its usage in non-glioma evaluations, as well as a
+discussion on the promise of the use of transformers in neuro-oncology imaging, is an
+important area of research. Thus, this article aims to evaluate the various uses of AI-
+assisted tools in the diagnosis and treatment of brain tumours, with a unique focus on
+brain gliomas as well as non-glioma evaluations, and transformer-based networks in
+brain tumour imaging.
+Section snippets
+Machine learning
+Machine learning (ML), falling under the umbrella of AI, incorporates algorithms and
+statistical models to make predictions about new data points [8], [9]. In ML, computers
+learn automatically from data accumulation and improve with experience.
+Deep learning (DL) is a subclass of ML that processes raw unstructured data using
+multi-layered artificial neural networks (ANN) [8], [9]. It is currently the basis of most of
+the AI tools used for image interpretation.. It can extract features, analyze
+Artificial intelligence in image analysis
+One of the most common applications of AI is in the analysis of diagnostic imaging.
+The process (Fig. 6) often commences with transforming the raw visual data into a
+format comprehensible to various deep learning models. This transformation is critical,
+whether the model in use is a Convolutional Neural Network (CNN), Vision Transformer(ViT), or another advanced architecture [11], [12]. The core essence of these models
+lies in their ability to interpret the visual content of images through a
+Lesion detection and grade Prediction
+AI can improve diagnosis of small lesions [17] by using MRI, CT and PET scan data.
+(Table 3). Small lesions affect treatment choices and are very relevant for DL algorithms
+[18]. CAD tools need to be tuned to ensure accuracy and reduce overdiagnosis and
+overtreatment (Fig. 1).
+Blanc-Durand et al [19] used dynamic 18F-FET PET images to detect brain lesions in
+glioma patients. They used a 3D U-Net CNN to classify lesion or non-lesion voxels from
+PET features. They got 0.9868 accuracy in training
+Ai applications in non-glioma evaluation
+Non-glioma brain tumours are a diverse group of brain tumours that can originate from
+different cell types and locations within the central nervous system. They include
+metastatic tumours, meningiomas, pituitary tumours, ependymomas, medulloblastomas,
+hemangioblastomas, and others. These tumours have different histopathological
+features, clinical manifestations, prognoses, and treatment options. Therefore, accurate
+and reliable methods for brain tumour classification are essential for improving
+Transformer-based neural networks in brain tumour
+imaging
+Transformers, a groundbreaking architecture initially revolutionizing natural language
+processing, as seen in models like ChatGPT, have expanded well beyond their original
+purpose. Their remarkable success in understanding and generating human language
+has paved the way for their application in medicine, specifically neuro-oncology imaging
+(Table 2), offering promising advancements in brain tumor diagnosis, classification and
+treatment. Transformers’ ability to efficiently process and analyze
+ChallengesImplementing AI in radiology presents several challenges, including the need for high-
+quality, ground-truth data, seamless integration into existing user workflows, and the
+development of methods that are generalizable, interpretable, and robust across
+different settings and population groups [79].
+Data Quality and Diversity: Large, well-annotated, and diverse datasets are essential
+to minimize measurement errors [80] and enhance algorithm performance across
+various sites, parameters, and
+Conclusion
+This review discusses the use of AI in brain tumour imaging. The development of CAD
+tools can improve diagnostic accuracy in detecting small metastatic brain lesions,
+allowing for early and accurate treatment planning, particularly for stereotactic
+radiosurgery.
+AI-driven extraction of imaging features that are not visible to the human eye is
+transforming radiological image analysis and reporting from a qualitative interpretation
+to an objective, quantifiable, and reproducible task.
+Segmentation
+Declaration of Generative AI and AI-assisted
+technologies in the writing process
+During the preparation of this work the author(s) used ChatGPT in order to Analyze
+reviewed articles and to retrieve results findings. After using this tool/service, the
+author(s) reviewed and edited the content as needed and take(s) full responsibility for
+the content of the publication.
+CRediT authorship contribution statement
+Ezekiel Chukwujindu: Writing – review & editing, Writing – original draft, Formal
+analysis, Data curation, Conceptualization. Hafsa Faiz: Writing – review & editing,
+Writing – original draft, Formal analysis, Data curation, Conceptualization. Sara AI-
+Douri: Writing – review & editing, Writing – original draft, Formal analysis, Datacuration, Conceptualization. Khunsa Faiz: Writing – review & editing, Writing – original
+draft, Formal analysis, Data curation, Conceptualization. Alexandra De
+Declaration of competing interest
+The authors declare that they have no known competing financial interests or personal
+relationships that could have appeared to influence the work reported in this paper.
+References (80)
+• G.S. Tandel et al.
+Multiclass magnetic resonance imaging brain tumor classification using
+artificial intelligence paradigm
+Comput Biol Med
+(Jul. 2020)
+• Y. Yang
+A comparative analysis of eleven neural networks architectures for small
+datasets of lung images of COVID-19 patients toward improved clinical
+decisions
+Comput Biol Med
+(Dec. 2021)
+• L.F. Machado et al.
+MRI radiomics for the prediction of recurrence in patients with clinically non-
+functioning pituitary macroadenomas
+Comput Biol Med
+(Sep. 2020)
+• P. Wesseling et al.
+WHO 2016 Classification of gliomas
+Neuropathol Appl Neurobiol
+(Feb. 2018)
+• S.J. PriceImproved delineation of glioma margins and regions of infiltration with the use
+of diffusion tensor imaging: an image-guided biopsy study
+AJNR Am J Neuroradiol
+(Oct. 2006)
+• N. Grech et al.
+Rising incidence of glioblastoma multiforme in a well-defined population
+Cureus
+(May 2020)
+• S. Aneja et al.
+Applications of artificial intelligence in neuro-oncology
+Curr Opin Neurol
+(Dec. 2019)
+• M. Cè
+Artificial intelligence in brain tumor imaging: a step toward personalized
+medicine
+Current Oncology
+(Mar. 01, 2023.)
+• M. Zhu
+Artificial intelligence in the radiomic analysis of glioblastomas: A review,
+taxonomy, and perspective
+Front Oncol
+(Aug. 2022)
+• M. Rowe
+An introduction to machine learning for clinicians
+Academic Medicine
+(Oct. 2019)
+View more references
+Cited by (4)• Automated segmentation in pelvic radiotherapy: A comprehensive evaluation
+of ATLAS-, machine learning-, and deep learning-based models
+2024, Physica Medica
+Citation Excerpt :
+Furthermore, especially in abdomen and pelvis CT scans, the scarce contrast between soft tissue
+organs and the high anatomical variability usually limits automated segmentation performances [9].
+Lastly, images are reconstructed during acquisition to have a predefined voxel size leading to partial
+volume averaging [10]. In recent years, taking full advantage of Convolutional Neural Network,
+automated segmentation tools have migrated from the research domain to commercially available
+products.
+Show abstract
+• Improved EfficientNet Architecture for Multi-Grade Brain Tumor Detection
+2025, Electronics (Switzerland)
+• Feasibility study of GTV determination in brain metastases based on contrast-
+enhanced T2-FLAIR
+2025, Chinese Journal of Cancer Prevention and Treatment
+• Transfer Learning Approaches for Brain Metastases Screenings
+2024, Biomedicines

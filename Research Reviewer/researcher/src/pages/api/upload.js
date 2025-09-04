@@ -29,31 +29,43 @@ export default async function handler(req, res) {
     fs.renameSync(paper1Path, newPaper1Path);
     fs.renameSync(paper2Path, newPaper2Path);
 
-    const pythonScriptPath = path.join(
-      __dirname,
-      '..', 
-      '..', 
-      '..', 
-      '..', 
-      '..',
-      '..', 
-      'Crew',
-      'src',
-      'myagent',
-      'tools',
-      'pdfdatascraper.py'
+    // Resolve python script path relative to repository root to avoid duplicate segments
+    const pythonScriptPath = path.resolve(
+      process.cwd(),
+      "..", // up from researcher -> Research Reviewer
+      "Crew",
+      "src",
+      "myagent",
+      "tools",
+      "pdfdatascraper.py"
     );
 
-    const python = spawn("python", [
+    // Debug: ensure script exists
+    if (!fs.existsSync(pythonScriptPath)) {
+      console.error("Python script not found at:", pythonScriptPath);
+      return res.status(500).send(`Python script not found: ${pythonScriptPath}`);
+    }
+
+    // locate venv python (Windows) relative to repo root
+    const venvPython = path.resolve(process.cwd(), "..", "Crew", ".venv", "Scripts", "python.exe");
+    const pythonExecutable = fs.existsSync(venvPython) ? venvPython : "python";
+
+    // Debug: show which python will be used
+    console.log("Using python executable:", pythonExecutable);
+    console.log("Running script:", pythonScriptPath);
+
+    const python = spawn(pythonExecutable, [
       pythonScriptPath,
       newPaper1Path,
-      newPaper2Path, 
-    ]);
-
+      newPaper2Path,
+    ], { cwd: path.dirname(pythonScriptPath) });
+    
     let output = "";
 
     python.stdout.on("data", (data) => (output += data.toString()));
-    python.stderr.on("data", (data) => console.error("Python error:", data.toString()));
+    python.stderr.on("data", (data) =>
+      console.error("Python error:", data.toString())
+    );
 
     python.on("close", (code) => {
       if (code === 0) {

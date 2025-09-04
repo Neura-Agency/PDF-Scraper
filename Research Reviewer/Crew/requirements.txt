@@ -1,5 +1,4 @@
 python-dotenv
-pymupdf
 fastapi
 uvicorn
 aiofiles
@@ -7,3 +6,4 @@ pydantic
 markdown
 crewai
 axios
+pdfplumber
