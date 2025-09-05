@@ -23,7 +23,7 @@ const Preview = ({ responseData, loading }: PreviewProps) => {
         {showLoading && loading && <Loading showLoading={showLoading} />}
         {!loading && (
           <div
-            className="h-full w-full overflow-auto custom-scrollbar p-2"
+            className="h-full w-full overflow-auto custom-scrollbar p-2 text-white"
             dangerouslySetInnerHTML={{ __html: responseData }}
           ></div>
         )}
