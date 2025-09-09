@@ -16,14 +16,16 @@ export default function HomePage() {
   return (
     <main className="flex max-md:flex-col items-center justify-around h-screen overflow-hidden w-screen bg-radial from-[#001F53] to-[#000026] backdrop-blur-3xl relative">
       {/* ---------- MOBILE HAMBURGER ---------- */}
-      <div className="absolute top-4 left-4 md:hidden z-50">
-        <button
-          className="p-2 rounded-md bg-[#0a1a3a] border border-[#27D1F0] text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          ☰
-        </button>
-      </div>
+      {!menuOpen && (
+        <div className="absolute top-4 left-4 md:hidden z-50">
+          <button
+            className="px-2 rounded-md bg-[#0a1a3a] text-white"
+            onClick={() => setMenuOpen(true)}
+          >
+            ☰
+          </button>
+        </div>
+      )}
 
       {/* ---------- DESKTOP LAYOUT ---------- */}
       <div className="hidden md:flex items-center justify-around w-full h-full">
@@ -89,10 +91,7 @@ export default function HomePage() {
           </div>
 
           {/* Click outside closes menu */}
-          <div
-            className="flex-1"
-            onClick={() => setMenuOpen(false)}
-          ></div>
+          <div className="flex-1" onClick={() => setMenuOpen(false)}></div>
         </div>
       )}
     </main>
