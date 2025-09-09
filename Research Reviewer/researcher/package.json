@@ -26,5 +26,10 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4.1.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "typewriter-effect": {
+      "react": "$react"
+    }
   }
 }
