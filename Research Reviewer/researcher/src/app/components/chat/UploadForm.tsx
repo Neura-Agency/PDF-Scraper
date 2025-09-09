@@ -22,7 +22,7 @@ export default function UploadForm({
 
   return (
     <>
-      <div className="flex flex-col h-screen w-full gap-4 p-12">
+      <div className="flex flex-col h-screen w-full gap-4 p-12 overflow-hidden">
         <Chatbox messages={chatmessages} loading={chatloading} aitext={setaichat} />
         <Upload
           setResponseData={setResponseData}

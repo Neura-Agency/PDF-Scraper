@@ -16,7 +16,7 @@ const Chatbox = ({ messages = [], loading, aitext }: ChatboxProps) => {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-hidden rounded-4xl bg-[#000B16]/70 border-1 border-[#27d2f070]">
+    <div className="flex-1 max-md:h-full overflow-hidden rounded-4xl bg-[#000B16]/70 border-1 border-[#27d2f070]">
         <main className="h-full overflow-y-auto custom-scrollbar p-8">
           <h1 className="text-3xl font-bold mb-4 text-center sticky">Research Reviewer</h1>
           <div className="space-y-4">

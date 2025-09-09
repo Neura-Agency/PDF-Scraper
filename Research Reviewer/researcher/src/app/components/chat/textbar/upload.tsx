@@ -63,7 +63,7 @@ export default function Upload({
 
   return (
     <>
-      <div className="flex items-center gap-4">
+      <div className="flex max-md:flex-col items-center gap-4">
         <div className="chat flex w-full justify-around p-2 bg-[#000B16]/70 border-1 border-[#27d2f070] rounded-2xl bg-opacity-48">
           <TextBox value={question} onChange={handleChange} />
           <div className="flex items-center gap-2 mx-2">
