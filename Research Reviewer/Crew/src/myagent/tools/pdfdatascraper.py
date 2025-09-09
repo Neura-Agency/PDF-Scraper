@@ -29,7 +29,7 @@ if __name__ == "__main__":
         else:
             output_filename = "output.txt"
 
-        output_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'knowledge', output_filename)
+        output_path = os.path.join(os.path.dirname(__file__), '..', '..', '..','Crew', 'knowledge', output_filename)
 
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(output_text)

@@ -1,2 +1,2 @@
-$env:PYTHONPATH = ".\Crew\src"
+$env:PYTHONPATH = ".\src"
 uvicorn myagent.main:app --reload

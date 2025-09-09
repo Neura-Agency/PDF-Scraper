@@ -1,0 +1,131 @@
+Get Started
+Introduction
+Build AI agent teams that work together to tackle complex tasks
+What is CrewAI?
+CrewAI is a lean, lightning-fast Python framework built entirely from
+scratch—completely independent of LangChain or other agent frameworks.
+CrewAI empowers developers with both high-level simplicity and precise low-
+level control, ideal for creating autonomous AI agents tailored to any scenario:
+• CrewAI Crews: Optimize for autonomy and collaborative intelligence, enabling
+you to create AI teams where each agent has specific roles, tools, and goals.
+• CrewAI Flows: Enable granular, event-driven control, single LLM calls for
+precise task orchestration and supports Crews natively.
+With over 100,000 developers certified through our community courses, CrewAI
+is rapidly becoming the standard for enterprise-ready AI automation.
+How Crews Work
+Just like a company has departments (Sales, Engineering, Marketing) working
+together under leadership to achieve business goals, CrewAI helps you create an
+organization of AI agents with specialized roles collaborating to accomplish
+complex tasks.CrewAI Framework Overview
+Component Description Key Features
+• Manages AI agent teams
+• Oversees workflows
+• Ensures collaboration
+Crew The top-level organization • Delivers outcomesComponent Description Key Features
+• Have specific roles (researcher, writer)
+• Use designated tools
+• Can delegate tasks
+AI Agents Specialized team members • Make autonomous decisions
+• Defines collaboration patterns
+• Controls task assignments
+• Manages interactions
+Process Workflow management system • Ensures efficient execution
+• Have clear objectives
+• Use specific tools
+• Feed into larger process
+Tasks Individual assignments • Produce actionable results
+How It All Works Together
+1. The Crew organizes the overall operation
+2. AI Agents work on their specialized tasks
+3. The Process ensures smooth collaboration4. Tasks get completed to achieve the goal
+Key Features
+Role-Based Agents
+Create specialized agents with defined roles, expertise, and goals - from
+researchers to analysts to writers
+Flexible Tools
+Equip agents with custom tools and APIs to interact with external services and
+data sources
+Intelligent Collaboration
+Agents work together, sharing insights and coordinating tasks to achieve
+complex objectives
+Task Management
+Define sequential or parallel workflows, with agents automatically handling task
+dependencies
+How Flows WorkWhile Crews excel at autonomous collaboration, Flows provide structured
+automations, offering granular control over workflow execution. Flows ensure
+tasks are executed reliably, securely, and efficiently, handling conditional logic,
+loops, and dynamic state management with precision. Flows integrate seamlessly
+with Crews, enabling you to balance high autonomy with exacting control.
+CrewAI Framework Overview
+Component Description Key Features
+• Manages execution paths
+• Handles state transitions
+• Controls task sequencing
+Flow Structured workflow orchestration • Ensures reliable executionComponent Description Key Features
+• Initiate specific processes
+• Enable dynamic responses
+• Support conditional branching
+Events Triggers for workflow actions • Allow for real-time adaptation
+• Maintain execution data
+• Enable persistence
+• Support resumability
+States Workflow execution contexts • Ensure execution integrity
+• Injects pockets of agency when needed
+• Complements structured workflows
+• Balances automation with intelligence
+Crew Support Enhances workflow automation • Enables adaptive decision-making
+Key Capabilities
+Event-Driven Orchestration
+Define precise execution paths responding dynamically to eventsFine-Grained Control
+Manage workflow states and conditional execution securely and efficiently
+Native Crew Integration
+Effortlessly combine with Crews for enhanced autonomy and intelligence
+Deterministic Execution
+Ensure predictable outcomes with explicit control flow and error handling
+When to Use Crews vs. Flows
+Understanding when to use Crews versus Flows is key to maximizing the
+potential of CrewAI in your applications.
+Recommended
+Use Case Approach Why?
+Open-ended When tasks require creative thinking, exploration,
+research Crews and adaptation
+Content For collaborative creation of articles, reports, or
+generation Crews marketing materialsRecommended
+Use Case Approach Why?
+Decision When you need predictable, auditable decision
+workflows Flows paths with precise control
+API For reliable integration with multiple external
+orchestration Flows services in a specific sequence
+Hybrid Use Flows to orchestrate overall process
+applications Combined approach with Crews handling complex subtasks
+Decision Framework
+• Choose Crews when: You need autonomous problem-solving, creative
+collaboration, or exploratory tasks
+• Choose Flows when: You require deterministic outcomes, auditability, or
+precise control over execution
+• Combine both when: Your application needs both structured processes and
+pockets of autonomous intelligenceWhy Choose CrewAI?
+• 🧠 Autonomous Operation: Agents make intelligent decisions based on their
+roles and available tools
+• 📝 Natural Interaction: Agents communicate and collaborate like human team
+members
+• 🛠️ Extensible Design: Easy to add new tools, roles, and capabilities
+• 🚀 Production Ready: Built for reliability and scalability in real-world
+applications
+• 🔒 Security-Focused: Designed with enterprise security requirements in mind
+• 💰 Cost-Efficient: Optimized to minimize token usage and API calls
+Ready to Start Building?
+Build Your First Crew
+Step-by-step tutorial to create a collaborative AI team that works together to
+solve complex problems.
+Build Your First FlowLearn how to create structured, event-driven workflows with precise control
+over execution.
+Install CrewAI
+Get started with CrewAI in your development environment.
+Quick Start
+Follow our quickstart guide to create your first CrewAI agent and get hands-on
+experience.
+Join the Community
+Connect with other developers, get help, and share your CrewAI experiences.
+Was this page helpful?
+YesNo
