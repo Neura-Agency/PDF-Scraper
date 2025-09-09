@@ -49,7 +49,10 @@ export default function Upload({
       const data = await res.json();
       setResponseText(data?.text || "No text extracted.");
 
-      const getResponse = await axios.get("http://127.0.0.1:8000/myagent");
+      const getResponse = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/myagent`
+      );
+      
       setResponseData(getResponse.data);
     } catch (error) {
       console.error("Error fetching data:", error);
