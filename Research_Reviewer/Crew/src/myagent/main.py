@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi import UploadFile, File
+import shutil
+import subprocess
 
 dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'Crew', '.env'))
 load_dotenv(dotenv_path= dotenv_path)
@@ -124,8 +127,35 @@ async def run_crew():
     except Exception as e:
         print(f"An error occurred: {e}")
         return {"error": str(e)}
+    
+@app.post("/upload-pdfs")
+async def upload_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
+    try:
+        # Save uploaded files to knowledge folder
+        paper1_path = os.path.join("Crew", "knowledge", "paper1.pdf")
+        paper2_path = os.path.join("Crew", "knowledge", "paper2.pdf")
 
+        with open(paper1_path, "wb") as buffer:
+            shutil.copyfileobj(pdf.file, buffer)
 
+        with open(paper2_path, "wb") as buffer:
+            shutil.copyfileobj(pdf2.file, buffer)
+
+        # Run your existing Python script
+        script_path = os.path.join("Crew", "src", "myagent", "tools", "pdfdatascraper.py")
+        result = subprocess.run(
+            ["python", script_path, paper1_path, paper2_path],
+            capture_output=True,
+            text=True,
+        )
+
+        if result.returncode != 0:
+            raise HTTPException(status_code=500, detail=result.stderr)
+
+        return {"message": "PDFs processed successfully", "output": result.stdout}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 main = app
 

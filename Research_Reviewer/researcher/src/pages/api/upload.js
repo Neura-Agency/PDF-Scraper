@@ -1,83 +1,65 @@
-import { spawn } from "child_process";
-import { formidable } from "formidable";
-import path from "path";
+// src/pages/api/upload.ts
+import { IncomingForm } from "formidable";
 import fs from "fs";
+import path from "path";
+import FormData from "form-data";
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // we handle multipart manually
   },
 };
 
 export default async function handler(req, res) {
-  const form = formidable({ uploadDir: "./upload", keepExtensions: true });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      console.error("Formidable parsing error:", err);
-      return res.status(500).send("Error parsing form");
-    }
+  try {
+    const form = new IncomingForm({
+      uploadDir: "/tmp", // only writable dir on Vercel
+      keepExtensions: true,
+    });
 
-    const paper1Path = files.pdf[0].filepath;
-    const paper2Path = files.pdf2[0].filepath;
+    form.parse(req, async (err, fields, files) => {
+      if (err) {
+        console.error("Formidable error:", err);
+        return res.status(500).json({ error: "File parsing failed" });
+      }
 
-    // Define new file names
-    const newPaper1Path = path.join(path.dirname(paper1Path), "paper1.pdf");
-    const newPaper2Path = path.join(path.dirname(paper2Path), "paper2.pdf");
+      try {
+        const paper1Path = files.pdf?.[0]?.filepath;
+        const paper2Path = files.pdf2?.[0]?.filepath;
 
-    // Rename the files
-    fs.renameSync(paper1Path, newPaper1Path);
-    fs.renameSync(paper2Path, newPaper2Path);
+        if (!paper1Path || !paper2Path) {
+          return res.status(400).json({ error: "Both PDFs are required" });
+        }
 
-    // Resolve python script path relative to repository root to avoid duplicate segments
-    const pythonScriptPath = path.resolve(
-      process.cwd(),
-      "..", // up from researcher -> Research Reviewer
-      "Crew",
-      "src",
-      "myagent",
-      "tools",
-      "pdfdatascraper.py"
-    );
+        // Prepare files to forward to backend
+        const formData = new FormData();
+        formData.append("pdf", fs.createReadStream(paper1Path));
+        formData.append("pdf2", fs.createReadStream(paper2Path));
 
-    // Debug: ensure script exists
-    if (!fs.existsSync(pythonScriptPath)) {
-      console.error("Python script not found at:", pythonScriptPath);
-      return res.status(500).send(`Python script not found: ${pythonScriptPath}`);
-    }
+        // Call your FastAPI backend
+        const backendRes = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
+          {
+            method: "POST",
+            body: formData,
+            headers: formData.getHeaders(),
+          }
+        );
 
-    // locate venv python (Windows) relative to repo root
-    const venvPython = path.resolve(process.cwd(), "..", "Crew", ".venv", "Scripts", "python.exe");
-    const pythonExecutable = fs.existsSync(venvPython) ? venvPython : "python";
+        const data = await backendRes.json();
 
-    // Debug: show which python will be used
-    console.log("Using python executable:", pythonExecutable);
-    console.log("Running script:", pythonScriptPath);
-
-    const python = spawn(pythonExecutable, [
-      pythonScriptPath,
-      newPaper1Path,
-      newPaper2Path,
-    ], { cwd: path.dirname(pythonScriptPath) });
-    
-    let output = "";
-
-    python.stdout.on("data", (data) => (output += data.toString()));
-    python.stderr.on("data", (data) =>
-      console.error("Python error:", data.toString())
-    );
-
-    python.on("close", (code) => {
-      if (code === 0) {
-        res.status(200).json({ text: output }); // Send response on success
-      } else {
-        res.status(500).send("Error processing the files"); // Send error response
+        return res.status(200).json(data);
+      } catch (error) {
+        console.error("Upload forwarding error:", error);
+        return res.status(500).json({ error: "Error forwarding to backend" });
       }
     });
-
-    python.on("error", (err) => {
-      console.error("Python error:", err);
-      res.status(500).send("Error processing the file");
-    });
-  });
+  } catch (error) {
+    console.error("Handler error:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }
