@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #010f34;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 0.875rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px; 
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.dashed-line-pulse {
+  stroke: #ffffff;
+  stroke-width: 1;
+  stroke-dasharray: 5, 5;
+  animation: dashPulseforward 1s linear infinite;
+  stroke-linecap: round;
+}
+.pulseforward {
+  stroke: #95DDFF;
+  stroke-width: 2;
+  stroke-dasharray: 5, 100;
+  stroke-dashoffset: 0;
+  animation: singledashfarward 1s linear infinite;
+  backdrop-filter: blur(10px);
+  box-shadow: 2px 2px 10px 2px #95DDFF;
+}
+.dashed-line-pulse-reverse {
+  stroke: #ffffff;
+  stroke-width: 1;
+  stroke-dasharray: 5, 5;
+  animation: dashPulsebackward 1s linear infinite;
+  stroke-linecap: round;
+}
+.pulsebackward {
+  stroke: #95DDFF;
+  stroke-width: 2;
+  stroke-dasharray: 5, 100;
+  stroke-dashoffset: 0;
+  animation: singledashbackward 1s linear infinite;
+  backdrop-filter: blur(10px);
+}
+
+
+@keyframes dashPulseforward {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+@keyframes singledashfarward {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+@keyframes singledashbackward {
+  to {
+    stroke-dashoffset: 100;
+  }
+}
+
+@keyframes dashPulsebackward {
+  to {
+    stroke-dashoffset: 10;
+  }
+}
+
+.reviewer-card {
+  box-shadow: 0px 0px 0px 0px #95DDFF; 
+  animation: boxShadowPulse 1s infinite; 
+}
+
+@keyframes boxShadowPulse {
+  0% {
+    box-shadow: 0px 0px 0px 0px #95DDFF; 
+  }
+  20% {
+    box-shadow: 0px 0px 8px 1px #95DDFF; 
+  }
+  40% {
+    box-shadow: 0px 0px 0px 0px #95DDFF; 
+  }
+  100% {
+    box-shadow: 0px 0px 0px 0px #95DDFF;
+  }
+}
+
+.custom-scrollbar {
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Disable horizontal scrolling */
+  max-height: 100%; /* Set the maximum height to 70% */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000b1603;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #27d2f0, #FF00AA);
+  border-radius: 10px;
+  border: 2px solid #000B16;
+}
+
+.chatuser{
+  border-radius: 20px 20px 0px 20px; 
+}
+.chatai{
+  border-radius: 20px 20px 20px 0px; 
+}
