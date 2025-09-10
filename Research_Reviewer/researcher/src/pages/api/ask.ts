@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!question) return res.status(400).json({ message: 'Question is required' });
 
   try {
-    const response = await axios.post('http://127.0.0.1:8000/ask', { question, search });
+    const response = await axios.post('https://pdf-scraper-uoi0.onrender.com/ask', { question, search });
     const answer = response.data.answer;
 
     res.status(200).json({ answer });
