@@ -71,7 +71,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center text-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 px-6">
               <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-              <h5 className="">Paper 1</h5>
+              <h5 className="text-white">Paper 1</h5>
             </div>
             {visibleDivs >= 5 && (
               <svg height="2" width="100" className="rotate-90 my-13">
@@ -89,7 +89,7 @@ const Loading = ({ showLoading }: LoadingProps) => {
           <div className="flex flex-col items-center justify-center">
             <div className="flex items-center justify-center gap-2 border-1 border-[#95DDFF] rounded-full bg-[#000B16]/70 p-2 px-6">
               <img src="./images/dataExtract.png" alt="" className="h-8 w-8" />
-              <h5 >Paper 2</h5>
+              <h5 className="text-white">Paper 2</h5>
             </div>
             {visibleDivs >= 5 && (
               <svg height="2" width="100" className="rotate-90 my-13">
