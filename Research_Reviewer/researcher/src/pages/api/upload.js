@@ -1,7 +1,6 @@
 // src/pages/api/upload.ts
 import { IncomingForm } from "formidable";
 import fs from "fs";
-import path from "path";
 import FormData from "form-data";
 
 export const config = {
@@ -40,13 +39,12 @@ export default async function handler(req, res) {
         formData.append("pdf", fs.createReadStream(paper1Path));
         formData.append("pdf2", fs.createReadStream(paper2Path));
 
-        // Call your FastAPI backend
+        // Call FastAPI backend
         const backendRes = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
           {
             method: "POST",
-            body: formData,
-            headers: formData.getHeaders(),
+            body: formData, // ✅ let fetch handle headers
           }
         );
 
