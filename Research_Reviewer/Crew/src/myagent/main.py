@@ -128,7 +128,7 @@ async def run_crew():
         print(f"An error occurred: {e}")
         return {"error": str(e)}
     
-@app.post("/upload-pdfs")
+@app.post("/process-pdfs")
 async def upload_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
         # Save uploaded files to knowledge folder
