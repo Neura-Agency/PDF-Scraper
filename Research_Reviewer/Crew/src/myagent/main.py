@@ -133,11 +133,14 @@ async def run_crew():
         return {"error": str(e)}
     
 @app.post("/process-pdfs")
-async def upload_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
+async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
-        # Save uploaded files to knowledge folder
-        paper1_path = os.path.join("Crew", "knowledge", "paper1.pdf")
-        paper2_path = os.path.join("Crew", "knowledge", "paper2.pdf")
+        # Save uploaded files into knowledge folder (relative to project root)
+        knowledge_dir = os.path.join(os.path.dirname(__file__), "..", "knowledge")
+        os.makedirs(knowledge_dir, exist_ok=True)
+
+        paper1_path = os.path.join(knowledge_dir, "paper1.pdf")
+        paper2_path = os.path.join(knowledge_dir, "paper2.pdf")
 
         with open(paper1_path, "wb") as buffer:
             shutil.copyfileobj(pdf.file, buffer)
@@ -145,8 +148,9 @@ async def upload_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...))
         with open(paper2_path, "wb") as buffer:
             shutil.copyfileobj(pdf2.file, buffer)
 
-        # Run your existing Python script
-        script_path = os.path.join("Crew", "src", "myagent", "tools", "pdfdatascraper.py")
+        # Path to pdfdatascraper.py (inside tools folder)
+        script_path = os.path.join(os.path.dirname(__file__), "tools", "pdfdatascraper.py")
+
         result = subprocess.run(
             ["python", script_path, paper1_path, paper2_path],
             capture_output=True,
@@ -160,6 +164,7 @@ async def upload_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...))
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 main = app
 
