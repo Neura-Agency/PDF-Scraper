@@ -19,8 +19,13 @@ load_dotenv(dotenv_path= dotenv_path)
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
+# Add a single canonical knowledge dir (pointing to the Crew/knowledge folder)
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))  # Crew
+KNOWLEDGE_DIR = os.path.join(ROOT_DIR, "knowledge")
+
+
 def get_paper1_content():
-    paper1_path = os.path.join('Crew', 'knowledge', 'paper1.txt')
+    paper1_path = os.path.join(KNOWLEDGE_DIR, 'paper1.txt')
     print(f"[DEBUG] Looking for paper1 at: {os.path.abspath(paper1_path)}")
     if os.path.exists(paper1_path):
         with open(paper1_path, 'r', encoding='utf-8') as file:
@@ -30,7 +35,8 @@ def get_paper1_content():
 
     
 def get_paper2_content():
-    paper2_path = os.path.join('Crew', 'knowledge', 'paper2.txt')
+    paper2_path = os.path.join(KNOWLEDGE_DIR, 'paper2.txt')
+    print(f"[DEBUG] Looking for paper2 at: {os.path.abspath(paper2_path)}")
     if os.path.exists(paper2_path):
         with open(paper2_path, 'r', encoding='utf-8') as file:
             return file.read()
@@ -135,12 +141,15 @@ async def run_crew():
 @app.post("/process-pdfs")
 async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
-        # Save uploaded files into knowledge folder (relative to project root)
-        knowledge_dir = os.path.join(os.path.dirname(__file__), "..", "knowledge")
-        os.makedirs(knowledge_dir, exist_ok=True)
+        # Save uploaded files into canonical knowledge folder
+        os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
 
-        paper1_path = os.path.join(knowledge_dir, "paper1.pdf")
-        paper2_path = os.path.join(knowledge_dir, "paper2.pdf")
+        paper1_path = os.path.join(KNOWLEDGE_DIR, "paper1.pdf")
+        paper2_path = os.path.join(KNOWLEDGE_DIR, "paper2.pdf")
+
+        # Ensure file pointers are at start
+        pdf.file.seek(0)
+        pdf2.file.seek(0)
 
         with open(paper1_path, "wb") as buffer:
             shutil.copyfileobj(pdf.file, buffer)
@@ -148,17 +157,19 @@ async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)
         with open(paper2_path, "wb") as buffer:
             shutil.copyfileobj(pdf2.file, buffer)
 
-        # Path to pdfdatascraper.py (inside tools folder)
+        # Path to pdfdatascraper.py (inside tools folder relative to this file)
         script_path = os.path.join(os.path.dirname(__file__), "tools", "pdfdatascraper.py")
 
+        # Use the same Python interpreter that's running this process
         result = subprocess.run(
-            ["python", script_path, paper1_path, paper2_path],
+            [sys.executable, script_path, paper1_path, paper2_path],
             capture_output=True,
             text=True,
         )
 
         if result.returncode != 0:
-            raise HTTPException(status_code=500, detail=result.stderr)
+            # include stderr for diagnostics
+            raise HTTPException(status_code=500, detail=result.stderr or "pdfdatascraper failed")
 
         return {"message": "PDFs processed successfully", "output": result.stdout}
 
