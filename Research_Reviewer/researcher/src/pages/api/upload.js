@@ -44,7 +44,7 @@ export default async function handler(req, res) {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
           {
             method: "POST",
-            body: formData, // ✅ let fetch handle headers
+            body: formData, 
           }
         );
 
