@@ -113,7 +113,11 @@ async def run_crew():
         result = crew.kickoff(inputs=inputs) 
         print("Kickoff completed.")
 
-        file_path = "Crew/knowledge/final_review.md"
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        KNOWLEDGE_DIR = os.path.join(BASE_DIR, "..", "..", "knowledge")
+
+        file_path = os.path.join(KNOWLEDGE_DIR, "final_review.md")
+
         if os.path.exists(file_path):
             with open(file_path, "r", encoding="utf-8") as f:
                 md_content = f.read()
