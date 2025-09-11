@@ -7,3 +7,4 @@ markdown
 crewai
 axios
 pdfplumber
+python-multipart
