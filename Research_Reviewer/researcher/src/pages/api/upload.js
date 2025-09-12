@@ -45,6 +45,7 @@ export default async function handler(req, res) {
           {
             method: "POST",
             body: formData, 
+            headers: formData.getHeaders(),  
           }
         );
 
