@@ -138,18 +138,29 @@ async def run_crew():
 @app.post("/process-pdfs")
 async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
-        # Debug: Check if files are received
+        # Enhanced debug logging
+        print("[DEBUG] Request received:")
+        print(f"PDF1: {pdf.filename} (size: {pdf.size} bytes)")
+        print(f"PDF2: {pdf2.filename} (size: {pdf2.size} bytes)")
+        
         if pdf is not None and pdf2 is not None:
-            print(f"[DEBUG] Received pdf1: {pdf.filename}, pdf2: {pdf2.filename}")
+            print(f"[DEBUG] Files validated successfully")
         else:
-            print("[DEBUG] Did not receive both pdf1 and pdf2")
+            print("[ERROR] Files validation failed")
             raise HTTPException(status_code=400, detail="Both pdf1 and pdf2 must be provided")
 
+        # Log knowledge directory
+        print(f"[DEBUG] Knowledge directory: {os.path.abspath(KNOWLEDGE_DIR)}")
+        
         # Save uploaded files into canonical knowledge folder
         os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
 
         paper1_path = os.path.join(KNOWLEDGE_DIR, "paper1.pdf")
         paper2_path = os.path.join(KNOWLEDGE_DIR, "paper2.pdf")
+        
+        print(f"[DEBUG] Saving files to:")
+        print(f"PDF1 -> {paper1_path}")
+        print(f"PDF2 -> {paper2_path}")
 
         # Ensure file pointers are at start
         pdf.file.seek(0)
@@ -161,6 +172,15 @@ async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)
         with open(paper2_path, "wb") as buffer:
             shutil.copyfileobj(pdf2.file, buffer)
 
+        # After saving, verify files exist
+        if not os.path.exists(paper1_path) or not os.path.exists(paper2_path):
+            print("[ERROR] Files were not saved correctly")
+            raise HTTPException(status_code=500, detail="Failed to save uploaded files")
+        else:
+            print("[DEBUG] Files saved successfully")
+            print(f"PDF1 size: {os.path.getsize(paper1_path)} bytes")
+            print(f"PDF2 size: {os.path.getsize(paper2_path)} bytes")
+            
         # Path to pdfdatascraper.py (inside tools folder relative to this file)
         script_path = os.path.join(os.path.dirname(__file__), "tools", "pdfdatascraper.py")
 
