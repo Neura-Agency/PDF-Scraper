@@ -138,6 +138,13 @@ async def run_crew():
 @app.post("/process-pdfs")
 async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
+        # Debug: Check if files are received
+        if pdf is not None and pdf2 is not None:
+            print(f"[DEBUG] Received pdf1: {pdf.filename}, pdf2: {pdf2.filename}")
+        else:
+            print("[DEBUG] Did not receive both pdf1 and pdf2")
+            raise HTTPException(status_code=400, detail="Both pdf1 and pdf2 must be provided")
+
         # Save uploaded files into canonical knowledge folder
         os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
 
