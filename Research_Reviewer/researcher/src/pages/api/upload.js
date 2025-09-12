@@ -53,19 +53,28 @@ export default async function handler(req, res) {
         formData.append("pdf", fs.createReadStream(paper1Path));
         formData.append("pdf2", fs.createReadStream(paper2Path));
 
-        console.log("[DEBUG] Sending files to backend:", process.env.NEXT_PUBLIC_BACKEND_URL);
+        // Add debug logging for form data
+        console.log("[DEBUG] Form data headers:", formData.getHeaders());
 
-        // Call FastAPI backend
-        const backendRes = await fetch(
+        const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
           {
             method: "POST",
-            body: formData, 
-            headers: formData.getHeaders(),  
+            body: formData,
+            headers: {
+              ...formData.getHeaders(),
+              "Accept": "application/json",
+            },
           }
         );
 
-        const data = await backendRes.json();
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("[ERROR] Backend response:", response.status, errorText);
+          throw new Error(`Backend error: ${response.status} ${errorText}`);
+        }
+
+        const data = await response.json();
 
         return res.status(200).json(data);
       } catch (error) {

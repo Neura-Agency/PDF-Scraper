@@ -138,49 +138,43 @@ async def run_crew():
 @app.post("/process-pdfs")
 async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
-        # Enhanced debug logging
-        print("[DEBUG] Request received:")
-        print(f"PDF1: {pdf.filename} (size: {pdf.size} bytes)")
-        print(f"PDF2: {pdf2.filename} (size: {pdf2.size} bytes)")
+        print("\n=== PDF Processing Start ===")
+        print(f"[DEBUG] Request Headers: {pdf.headers}")
+        print(f"[DEBUG] Content Type PDF1: {pdf.content_type}")
+        print(f"[DEBUG] Content Type PDF2: {pdf2.content_type}")
         
-        if pdf is not None and pdf2 is not None:
-            print(f"[DEBUG] Files validated successfully")
-        else:
-            print("[ERROR] Files validation failed")
-            raise HTTPException(status_code=400, detail="Both pdf1 and pdf2 must be provided")
+        if not pdf.filename or not pdf2.filename:
+            print("[ERROR] Missing filename in upload")
+            raise HTTPException(status_code=400, detail="Invalid file upload")
 
-        # Log knowledge directory
-        print(f"[DEBUG] Knowledge directory: {os.path.abspath(KNOWLEDGE_DIR)}")
-        
-        # Save uploaded files into canonical knowledge folder
+        # Create knowledge directory if it doesn't exist
+        print(f"[DEBUG] Creating directory: {KNOWLEDGE_DIR}")
         os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
 
+        # Save files with more detailed logging
         paper1_path = os.path.join(KNOWLEDGE_DIR, "paper1.pdf")
         paper2_path = os.path.join(KNOWLEDGE_DIR, "paper2.pdf")
         
-        print(f"[DEBUG] Saving files to:")
-        print(f"PDF1 -> {paper1_path}")
-        print(f"PDF2 -> {paper2_path}")
-
-        # Ensure file pointers are at start
-        pdf.file.seek(0)
-        pdf2.file.seek(0)
-
+        print(f"[DEBUG] Saving PDF1 to: {paper1_path}")
         with open(paper1_path, "wb") as buffer:
-            shutil.copyfileobj(pdf.file, buffer)
-
+            content = await pdf.read()
+            buffer.write(content)
+            print(f"[DEBUG] Wrote {len(content)} bytes for PDF1")
+        
+        print(f"[DEBUG] Saving PDF2 to: {paper2_path}")
         with open(paper2_path, "wb") as buffer:
-            shutil.copyfileobj(pdf2.file, buffer)
+            content = await pdf2.read()
+            buffer.write(content)
+            print(f"[DEBUG] Wrote {len(content)} bytes for PDF2")
 
-        # After saving, verify files exist
-        if not os.path.exists(paper1_path) or not os.path.exists(paper2_path):
-            print("[ERROR] Files were not saved correctly")
-            raise HTTPException(status_code=500, detail="Failed to save uploaded files")
-        else:
+        # Verify files exist and have content
+        if os.path.exists(paper1_path) and os.path.exists(paper2_path):
             print("[DEBUG] Files saved successfully")
             print(f"PDF1 size: {os.path.getsize(paper1_path)} bytes")
             print(f"PDF2 size: {os.path.getsize(paper2_path)} bytes")
-            
+        else:
+            raise HTTPException(status_code=500, detail="Failed to save files")
+        
         # Path to pdfdatascraper.py (inside tools folder relative to this file)
         script_path = os.path.join(os.path.dirname(__file__), "tools", "pdfdatascraper.py")
 
