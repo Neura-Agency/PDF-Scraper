@@ -50,21 +50,29 @@ export default async function handler(req, res) {
 
         // Prepare files to forward to backend
         const formData = new FormData();
-        formData.append("pdf", fs.createReadStream(paper1Path));
-        formData.append("pdf2", fs.createReadStream(paper2Path));
+        
+        // Add files with explicit content types
+        formData.append("pdf", fs.createReadStream(paper1Path), {
+          filename: files.pdf[0].originalFilename,
+          contentType: 'application/pdf'
+        });
+        
+        formData.append("pdf2", fs.createReadStream(paper2Path), {
+          filename: files.pdf2[0].originalFilename,
+          contentType: 'application/pdf'
+        });
 
-        // Add debug logging for form data
-        console.log("[DEBUG] Form data headers:", formData.getHeaders());
+        console.log("[DEBUG] Sending request to backend:", {
+          url: process.env.NEXT_PUBLIC_BACKEND_URL,
+          headers: formData.getHeaders()
+        });
 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
           {
             method: "POST",
             body: formData,
-            headers: {
-              ...formData.getHeaders(),
-              "Accept": "application/json",
-            },
+            headers: formData.getHeaders() // Let FormData set the correct boundary
           }
         );
 

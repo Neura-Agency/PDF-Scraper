@@ -136,19 +136,34 @@ async def run_crew():
 
 
 @app.post("/process-pdfs")
-async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
+async def process_pdfs(
+    pdf: UploadFile = File(..., description="First PDF file"),
+    pdf2: UploadFile = File(..., description="Second PDF file")
+):
     try:
         print("\n=== PDF Processing Start ===")
-        print(f"[DEBUG] Request Headers: {pdf.headers}")
-        print(f"[DEBUG] Content Type PDF1: {pdf.content_type}")
-        print(f"[DEBUG] Content Type PDF2: {pdf2.content_type}")
+        print(f"[DEBUG] Timestamp: {datetime.now().isoformat()}")
+        print(f"[DEBUG] PDF1 Details:")
+        print(f"  Filename: {pdf.filename}")
+        print(f"  Content-Type: {pdf.content_type}")
+        print(f"  Headers: {dict(pdf.headers)}")
         
+        print(f"\n[DEBUG] PDF2 Details:")
+        print(f"  Filename: {pdf2.filename}")
+        print(f"  Content-Type: {pdf2.content_type}")
+        print(f"  Headers: {dict(pdf2.headers)}")
+
         if not pdf.filename or not pdf2.filename:
             print("[ERROR] Missing filename in upload")
             raise HTTPException(status_code=400, detail="Invalid file upload")
 
+        # Verify content types
+        if pdf.content_type != "application/pdf" or pdf2.content_type != "application/pdf":
+            print(f"[ERROR] Invalid content type: PDF1={pdf.content_type}, PDF2={pdf2.content_type}")
+            raise HTTPException(status_code=400, detail="Files must be PDFs")
+
         # Create knowledge directory if it doesn't exist
-        print(f"[DEBUG] Creating directory: {KNOWLEDGE_DIR}")
+        print(f"[DEBUG] Knowledge directory path: {os.path.abspath(KNOWLEDGE_DIR)}")
         os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
 
         # Save files with more detailed logging
@@ -156,14 +171,14 @@ async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)
         paper2_path = os.path.join(KNOWLEDGE_DIR, "paper2.pdf")
         
         print(f"[DEBUG] Saving PDF1 to: {paper1_path}")
+        content = await pdf.read()
         with open(paper1_path, "wb") as buffer:
-            content = await pdf.read()
             buffer.write(content)
             print(f"[DEBUG] Wrote {len(content)} bytes for PDF1")
-        
+            
         print(f"[DEBUG] Saving PDF2 to: {paper2_path}")
+        content = await pdf2.read()
         with open(paper2_path, "wb") as buffer:
-            content = await pdf2.read()
             buffer.write(content)
             print(f"[DEBUG] Wrote {len(content)} bytes for PDF2")
 
