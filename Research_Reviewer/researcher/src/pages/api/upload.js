@@ -76,15 +76,11 @@ export default async function handler(req, res) {
           contentType: "application/pdf",
         });
 
-        // Debug: list keys + filenames in FormData
-        console.log("[DEBUG] FormData keys being sent:");
-        for (const [key, value] of formData) {
-          console.log(
-            "  ",
-            key,
-            value?.path ? `ReadStream(${value.path})` : value
-          );
-        }
+        
+        console.log("[DEBUG] FormData keys being sent: pdf, pdf2");
+        console.log("  pdf ->", pdfFile?.originalFilename, "at", paper1Path);
+        console.log("  pdf2 ->", pdf2File?.originalFilename, "at", paper2Path);
+        
 
         const backendUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`;
         console.log("[DEBUG] Forwarding request to backend:", { url: backendUrl });
