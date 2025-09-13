@@ -54,7 +54,14 @@ app.add_middleware(
     ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=[
+        "*",
+        "Content-Type",
+        "Content-Length",
+        "Accept",
+        "Accept-Encoding",
+        "Accept-Language",
+    ],
 )
 
 
@@ -137,28 +144,41 @@ async def run_crew():
 
 
 @app.post("/process-pdfs")
-async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
+async def process_pdfs(
+    pdf: UploadFile = File(..., description="First PDF file"),
+    pdf2: UploadFile = File(..., description="Second PDF file")
+):
     try:
-        os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
+        print("\n=== Processing PDFs ===")
+        print(f"[DEBUG] Received files:")
+        print(f"PDF1: {pdf.filename} ({pdf.content_type})")
+        print(f"PDF2: {pdf2.filename} ({pdf.content_type})")
 
+        # Validate content types
+        if not pdf.content_type == "application/pdf" or not pdf2.content_type == "application/pdf":
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid file type. Only PDFs are accepted."
+            )
+
+        os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
         paper1_path = os.path.join(KNOWLEDGE_DIR, "paper1.pdf")
         paper2_path = os.path.join(KNOWLEDGE_DIR, "paper2.pdf")
 
-        print(f"[DEBUG] Saving uploads into knowledge dir: {KNOWLEDGE_DIR}")
-        print(f"[DEBUG] Paper1 target path: {paper1_path}")
-        print(f"[DEBUG] Paper2 target path: {paper2_path}")
+        # Save files using async read
+        print(f"[DEBUG] Saving files to {KNOWLEDGE_DIR}")
+        
+        content1 = await pdf.read()
+        content2 = await pdf2.read()
 
-        # Reset file pointers
-        pdf.file.seek(0)
-        pdf2.file.seek(0)
+        with open(paper1_path, "wb") as f:
+            f.write(content1)
+        with open(paper2_path, "wb") as f:
+            f.write(content2)
 
-        with open(paper1_path, "wb") as buffer:
-            shutil.copyfileobj(pdf.file, buffer)
-        with open(paper2_path, "wb") as buffer:
-            shutil.copyfileobj(pdf2.file, buffer)
+        print("[DEBUG] Files saved successfully")
 
-        print("[DEBUG] Files successfully saved.")
-
+        # Rest of your existing processing code...
         script_path = os.path.join(os.path.dirname(__file__), "tools", "pdfdatascraper.py")
         print(f"[DEBUG] Running pdfdatascraper.py at: {script_path}")
 

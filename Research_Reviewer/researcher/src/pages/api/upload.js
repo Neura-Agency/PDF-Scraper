@@ -66,31 +66,30 @@ export default async function handler(req, res) {
         console.log("[DEBUG] Preparing FormData to forward...");
         const formData = new FormData();
 
-        formData.append("pdf", fs.createReadStream(paper1Path), {
-          filename: pdfFile.originalFilename || path.basename(paper1Path),
-          contentType: "application/pdf",
+        // Modify how we append files to FormData
+        const pdf1Stream = fs.createReadStream(paper1Path);
+        const pdf2Stream = fs.createReadStream(paper2Path);
+
+        formData.append("pdf", pdf1Stream, {
+            filename: pdfFile.originalFilename,
+            contentType: 'application/pdf'
         });
 
-        formData.append("pdf2", fs.createReadStream(paper2Path), {
-          filename: pdf2File.originalFilename || path.basename(paper2Path),
-          contentType: "application/pdf",
+        formData.append("pdf2", pdf2Stream, {
+            filename: pdf2File.originalFilename,
+            contentType: 'application/pdf'
         });
 
-        
-        console.log("[DEBUG] FormData keys being sent: pdf, pdf2");
-        console.log("  pdf ->", pdfFile?.originalFilename, "at", paper1Path);
-        console.log("  pdf2 ->", pdf2File?.originalFilename, "at", paper2Path);
-        
-
-        const backendUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`;
-        console.log("[DEBUG] Forwarding request to backend:", { url: backendUrl });
+        console.log("[DEBUG] Sending request with headers:", formData.getHeaders());
 
         const response = await fetch(backendUrl, {
-          method: "POST",
-          body: formData,
-          headers: formData.getHeaders(), // ✅ add this
+            method: "POST",
+            body: formData,
+            headers: {
+                ...formData.getHeaders(),
+                "Accept": "application/json",
+            },
         });
-        
 
         console.log("[DEBUG] Backend responded with status:", response.status);
 
