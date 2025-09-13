@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 # Canonical knowledge directory (Crew/knowledge)
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))  # Crew
-KNOWLEDGE_DIR = os.path.join(ROOT_DIR, "knowledge")
+KNOWLEDGE_DIR = os.path.join(ROOT_DIR, "Crew", "knowledge")
 
 
 
@@ -136,94 +136,74 @@ async def run_crew():
 
 
 @app.post("/process-pdfs")
-async def process_pdfs(
-    pdf: UploadFile = File(..., description="First PDF file"),
-    pdf2: UploadFile = File(..., description="Second PDF file")
-):
+async def process_pdfs(pdf: UploadFile = File(...), pdf2: UploadFile = File(...)):
     try:
-        print("\n=== PDF Processing Start ===")
-        print(f"[DEBUG] Timestamp: {datetime.now().isoformat()}")
-        print(f"[DEBUG] PDF1 Details:")
-        print(f"  Filename: {pdf.filename}")
-        print(f"  Content-Type: {pdf.content_type}")
-        print(f"  Headers: {dict(pdf.headers)}")
-        
-        print(f"\n[DEBUG] PDF2 Details:")
-        print(f"  Filename: {pdf2.filename}")
-        print(f"  Content-Type: {pdf2.content_type}")
-        print(f"  Headers: {dict(pdf2.headers)}")
-
-        if not pdf.filename or not pdf2.filename:
-            print("[ERROR] Missing filename in upload")
-            raise HTTPException(status_code=400, detail="Invalid file upload")
-
-        # Verify content types
-        if pdf.content_type != "application/pdf" or pdf2.content_type != "application/pdf":
-            print(f"[ERROR] Invalid content type: PDF1={pdf.content_type}, PDF2={pdf2.content_type}")
-            raise HTTPException(status_code=400, detail="Files must be PDFs")
-
-        # Create knowledge directory if it doesn't exist
-        print(f"[DEBUG] Knowledge directory path: {os.path.abspath(KNOWLEDGE_DIR)}")
         os.makedirs(KNOWLEDGE_DIR, exist_ok=True)
 
-        # Save files with more detailed logging
         paper1_path = os.path.join(KNOWLEDGE_DIR, "paper1.pdf")
         paper2_path = os.path.join(KNOWLEDGE_DIR, "paper2.pdf")
-        
-        print(f"[DEBUG] Saving PDF1 to: {paper1_path}")
-        content = await pdf.read()
+
+        print(f"[DEBUG] Saving uploads into knowledge dir: {KNOWLEDGE_DIR}")
+        print(f"[DEBUG] Paper1 target path: {paper1_path}")
+        print(f"[DEBUG] Paper2 target path: {paper2_path}")
+
+        # Reset file pointers
+        pdf.file.seek(0)
+        pdf2.file.seek(0)
+
         with open(paper1_path, "wb") as buffer:
-            buffer.write(content)
-            print(f"[DEBUG] Wrote {len(content)} bytes for PDF1")
-            
-        print(f"[DEBUG] Saving PDF2 to: {paper2_path}")
-        content = await pdf2.read()
+            shutil.copyfileobj(pdf.file, buffer)
         with open(paper2_path, "wb") as buffer:
-            buffer.write(content)
-            print(f"[DEBUG] Wrote {len(content)} bytes for PDF2")
+            shutil.copyfileobj(pdf2.file, buffer)
 
-        # Verify files exist and have content
-        if os.path.exists(paper1_path) and os.path.exists(paper2_path):
-            print("[DEBUG] Files saved successfully")
-            print(f"PDF1 size: {os.path.getsize(paper1_path)} bytes")
-            print(f"PDF2 size: {os.path.getsize(paper2_path)} bytes")
-        else:
-            raise HTTPException(status_code=500, detail="Failed to save files")
-        
-        # Path to pdfdatascraper.py (inside tools folder relative to this file)
+        print("[DEBUG] Files successfully saved.")
+
         script_path = os.path.join(os.path.dirname(__file__), "tools", "pdfdatascraper.py")
+        print(f"[DEBUG] Running pdfdatascraper.py at: {script_path}")
 
-        # Use the same Python interpreter that's running this process
         result = subprocess.run(
             [sys.executable, script_path, paper1_path, paper2_path],
             capture_output=True,
             text=True,
         )
 
+        print("[DEBUG] pdfdatascraper return code:", result.returncode)
+        print("[DEBUG] pdfdatascraper stdout:", result.stdout.strip())
+        print("[DEBUG] pdfdatascraper stderr:", result.stderr.strip())
+
         if result.returncode != 0:
             raise HTTPException(status_code=500, detail=result.stderr or "pdfdatascraper failed")
 
-        # Load extracted texts if available
         texts = {}
         paper1_txt = os.path.join(KNOWLEDGE_DIR, "paper1.txt")
         paper2_txt = os.path.join(KNOWLEDGE_DIR, "paper2.txt")
 
+        print(f"[DEBUG] Looking for extracted TXT files: {paper1_txt}, {paper2_txt}")
+
         if os.path.exists(paper1_txt):
             with open(paper1_txt, "r", encoding="utf-8") as f:
                 texts["paper1"] = f.read()
+            print("[DEBUG] paper1.txt loaded successfully")
+        else:
+            print("[WARN] paper1.txt not found!")
 
         if os.path.exists(paper2_txt):
             with open(paper2_txt, "r", encoding="utf-8") as f:
                 texts["paper2"] = f.read()
+            print("[DEBUG] paper2.txt loaded successfully")
+        else:
+            print("[WARN] paper2.txt not found!")
 
         return {
             "message": "PDFs processed successfully",
             "texts": texts,
-            "stdout": result.stdout.strip()
+            "stdout": result.stdout.strip(),
         }
 
     except Exception as e:
+        print("[ERROR] process_pdfs failed:", str(e))
         raise HTTPException(status_code=500, detail=str(e))
+
 
 
 main = app
