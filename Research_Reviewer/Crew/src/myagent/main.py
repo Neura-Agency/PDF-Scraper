@@ -20,8 +20,9 @@ load_dotenv(dotenv_path=dotenv_path)
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 # Canonical knowledge directory (Crew/knowledge)
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))  # Crew
-KNOWLEDGE_DIR = os.path.join(ROOT_DIR, "Crew", "knowledge")
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+KNOWLEDGE_DIR = os.path.join(ROOT_DIR, "knowledge")
+
 
 
 
