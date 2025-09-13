@@ -32,30 +32,46 @@ export default function Upload({
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     if (e) e.preventDefault();
-    if (!file && !file2) return;
+    if (!file || !file2) {
+      console.error('Both PDFs are required');
+      return;
+    }
 
     setLoading(true);
 
     try {
+      // Create FormData with proper headers
       const formData = new FormData();
-      if (file) formData.append("pdf", file);
-      if (file2) formData.append("pdf2", file2);
+      formData.append("pdf", file, file.name);
+      formData.append("pdf2", file2, file2.name);
 
-      const res = await fetch("/api/upload", {
+      // First upload PDFs
+      const uploadResponse = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
 
-      const data = await res.json();
-      setResponseText(data?.text || "No text extracted.");
+      if (!uploadResponse.ok) {
+        throw new Error(`Upload failed: ${uploadResponse.statusText}`);
+      }
 
-      const getResponse = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/myagent`
+      const uploadData = await uploadResponse.json();
+      console.log("Upload successful:", uploadData);
+
+      // Then get the analysis
+      const analysisResponse = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/myagent`,
+        {
+          headers: {
+            'Accept': 'text/html,application/json',
+          }
+        }
       );
       
-      setResponseData(getResponse.data);
+      setResponseData(analysisResponse.data);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error:", error);
+      // Optionally show error to user
     } finally {
       setLoading(false);
     }

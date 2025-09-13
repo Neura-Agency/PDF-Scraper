@@ -10,7 +10,7 @@ export const config = {
   },
 };
 
-// Helper to normalize formidable file objects (works for v2 + v3)
+// Helper to normalize formidable file objects
 function getFile(file) {
   if (!file) return null;
   return Array.isArray(file) ? file[0] : file;
@@ -66,29 +66,30 @@ export default async function handler(req, res) {
         console.log("[DEBUG] Preparing FormData to forward...");
         const formData = new FormData();
 
-        // Modify how we append files to FormData
-        const pdf1Stream = fs.createReadStream(paper1Path);
-        const pdf2Stream = fs.createReadStream(paper2Path);
-
-        formData.append("pdf", pdf1Stream, {
-            filename: pdfFile.originalFilename,
-            contentType: 'application/pdf'
+        // Append PDFs as streams
+        formData.append("pdf", fs.createReadStream(paper1Path), {
+          filename: pdfFile.originalFilename,
+          contentType: "application/pdf",
         });
 
-        formData.append("pdf2", pdf2Stream, {
-            filename: pdf2File.originalFilename,
-            contentType: 'application/pdf'
+        formData.append("pdf2", fs.createReadStream(paper2Path), {
+          filename: pdf2File.originalFilename,
+          contentType: "application/pdf",
         });
+
+        // ✅ FIX: Define backendUrl before using
+        const backendUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`;
+        console.log("[DEBUG] Forwarding request to backend:", backendUrl);
 
         console.log("[DEBUG] Sending request with headers:", formData.getHeaders());
 
         const response = await fetch(backendUrl, {
-            method: "POST",
-            body: formData,
-            headers: {
-                ...formData.getHeaders(),
-                "Accept": "application/json",
-            },
+          method: "POST",
+          body: formData,
+          headers: {
+            ...formData.getHeaders(),
+            Accept: "application/json",
+          },
         });
 
         console.log("[DEBUG] Backend responded with status:", response.status);
