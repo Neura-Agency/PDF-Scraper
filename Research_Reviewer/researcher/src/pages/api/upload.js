@@ -76,23 +76,32 @@ export default async function handler(req, res) {
           contentType: "application/pdf",
         });
 
-        console.log("[DEBUG] Forwarding request to backend:", {
-          url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
-        });
+        // Debug: list keys + filenames in FormData
+        console.log("[DEBUG] FormData keys being sent:");
+        for (const [key, value] of formData) {
+          console.log(
+            "  ",
+            key,
+            value?.path ? `ReadStream(${value.path})` : value
+          );
+        }
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`,
-          {
-            method: "POST",
-            body: formData, // don't set headers manually
-          }
-        );
+        const backendUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/process-pdfs`;
+        console.log("[DEBUG] Forwarding request to backend:", { url: backendUrl });
+
+        const response = await fetch(backendUrl, {
+          method: "POST",
+          body: formData, // don't set headers manually
+        });
 
         console.log("[DEBUG] Backend responded with status:", response.status);
 
         if (!response.ok) {
           const errorText = await response.text();
-          console.error("[ERROR] Backend error response:", errorText);
+          console.error("[ERROR] Backend error response:", {
+            status: response.status,
+            body: errorText,
+          });
           throw new Error(`Backend error: ${response.status} ${errorText}`);
         }
 
@@ -100,12 +109,18 @@ export default async function handler(req, res) {
         console.log("[DEBUG] Backend response JSON:", data);
 
         // Cleanup temp files
-        try {
-          fs.unlinkSync(paper1Path);
-          fs.unlinkSync(paper2Path);
-          console.log("[DEBUG] Temp files deleted:", { paper1Path, paper2Path });
-        } catch (cleanupErr) {
-          console.warn("[WARN] Failed to cleanup temp files:", cleanupErr);
+        for (const filePath of [paper1Path, paper2Path]) {
+          try {
+            if (fs.existsSync(filePath)) {
+              fs.unlinkSync(filePath);
+              console.log("[DEBUG] Temp file deleted:", filePath);
+            }
+          } catch (cleanupErr) {
+            console.warn("[WARN] Failed to cleanup temp file:", {
+              filePath,
+              error: cleanupErr,
+            });
+          }
         }
 
         return res.status(200).json(data);
