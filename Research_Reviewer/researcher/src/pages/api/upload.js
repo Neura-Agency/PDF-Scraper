@@ -87,8 +87,10 @@ export default async function handler(req, res) {
 
         const response = await fetch(backendUrl, {
           method: "POST",
-          body: formData, // don't set headers manually
+          body: formData,
+          headers: formData.getHeaders(), // ✅ add this
         });
+        
 
         console.log("[DEBUG] Backend responded with status:", response.status);
 
