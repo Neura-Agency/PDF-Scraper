@@ -67,12 +67,17 @@ class Myagent():
 
     @task
     def review_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['review_task'],
-            agent=self.reviewer(),
-            inputs=[self.research_task()],
-            output_file='Crew/knowledge/final_review.md'
-        )
+       base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+       output_path = os.path.join(base_dir, "knowledge", "final_review.md")
+       print(f"[DEBUG] review_task will write to: {output_path}")
+
+       return Task(
+           config=self.tasks_config['review_task'],
+           agent=self.reviewer(),
+           inputs=[self.research_task()],
+           output_file=output_path
+       )
+
 
     @task
     def chat_task(self) -> Task:
